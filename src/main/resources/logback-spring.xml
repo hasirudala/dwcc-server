@@ -2,14 +2,14 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <springProfile name="dev">
-        <logger name="org.hasirudala" additivity="true" level="info">
+        <logger name="in.hasirudala" additivity="true" level="info">
             <appender-ref ref="FILE"/>
         </logger>
         <logger name="org.springframework" level="OFF"/>
         <logger name="org.hibernate.search.batchindexing.impl.SimpleIndexingProgressMonitor" level="OFF"/>
     </springProfile>
     <springProfile name="live">
-        <logger name="org.hasirudala" additivity="false" level="info">
+        <logger name="in.hasirudala" additivity="false" level="info">
             <appender-ref ref="FILE"/>
         </logger>
         <logger name="org.springframework" level="OFF"/>

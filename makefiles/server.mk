@@ -10,5 +10,8 @@ build_server: ## Builds the jar file
 test_server: rebuild_testdb ## Run tests
 	GRADLE_OPTS="-Xmx256m" ./gradlew clean test
 
+open_test_results:
+	$(call _open,build/reports/tests/test/index.html)
+
 start_server_wo_gradle:
 	java -jar build/libs/buguri-server.jar

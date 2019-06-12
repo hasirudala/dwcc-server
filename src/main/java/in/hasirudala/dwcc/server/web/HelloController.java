@@ -1,4 +1,4 @@
-package org.hasirudala.buguri.server.web;
+package in.hasirudala.dwcc.server.web;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

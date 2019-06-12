@@ -9,6 +9,7 @@ help:
 	    printf "%-30s %s\n" $$help_command $$help_info ; \
 	done
 
+include makefiles/common.mk
 include makefiles/db.mk
 include makefiles/server.mk
 
