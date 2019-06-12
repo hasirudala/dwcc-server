@@ -21,7 +21,7 @@ public class AppTest {
 
     @Test
     public void helloWorld() throws Exception {
-        mvc.perform(get("/"))
+        mvc.perform(get("/observability/sayHello"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Hello World!"));
     }

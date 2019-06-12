@@ -1,8 +1,8 @@
 start_server: build_server
-	java -jar build/libs/buguri-server.jar
+	java -jar build/libs/dwcc-server.jar
 
 debug_server: build_server
-	java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -jar build/libs/buguri-server.jar
+	java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -jar build/libs/dwcc-server.jar
 
 build_server: ## Builds the jar file
 	./gradlew clean build -x test
@@ -14,4 +14,4 @@ open_test_results:
 	$(call _open,build/reports/tests/test/index.html)
 
 start_server_wo_gradle:
-	java -jar build/libs/buguri-server.jar
+	java -jar build/libs/dwcc-server.jar

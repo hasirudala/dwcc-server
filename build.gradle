@@ -25,6 +25,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}"
     compile "org.flywaydb:flyway-core:5.2.4"
     compile "org.flywaydb.flyway-test-extensions:flyway-spring-test:5.2.4"
+    compile 'com.bugsnag:bugsnag:3.+'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
