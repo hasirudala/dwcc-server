@@ -1,5 +1,5 @@
-.idea/compiler.xml
-.idea/workspace.xml
+.idea
 *.iml
 build
 out
+.gradle
