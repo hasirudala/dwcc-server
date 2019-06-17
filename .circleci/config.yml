@@ -1,9 +1,55 @@
 version: 2.1
 
-orbs:
-    hello: circleci/hello-build@0.0.7
+jobs:
+  test:
+    docker:
+      - image: circleci/openjdk:11.0.3-jdk-stretch
+
+      - image: circleci/postgres:10.5-ram
+        environment:
+          - POSTGRES_USER: circleci
+          - POSTGRES_DB: dwcc_test
+
+    working_directory: ~/dwcc-server
+
+    environment:
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "build.gradle" }}
+            - v1-dependencies-
+
+      - run: sudo apt-get install make postgresql-client
+
+      - run: make rebuild_testdb && ./gradlew clean test
+
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/junit/
+            find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/junit/ \;
+          when: always
+
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: v1-dependencies-{{ checksum "build.gradle" }}
+
+      - store_artifacts:
+          path: ~/junit
+      - store_test_results:
+          path: ~/junit
+
+      - store_artifacts:
+          path: build/reports/tests/
+          destination: testResultsHtml
 
 workflows:
-    "Hello Workflow":
-        jobs:
-          - hello/hello-build
+  test:
+    jobs:
+      - test
