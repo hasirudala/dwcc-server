@@ -13,13 +13,13 @@ import org.springframework.context.annotation.Import;
 @Import(BugsnagSpringConfiguration.class)
 public class BugsnagConfiguration {
 
-    @Value("${bugsnag.apiKey}")
+    @Value("${bugsnag.apiKey:dummy}")
     private String apiKey;
 
-    @Value("${bugsnag.releaseStage}")
+    @Value("${bugsnag.releaseStage:dummy}")
     private String releaseStage;
 
-    @Value("${bugsnag.notifyReleaseStages}")
+    @Value("${bugsnag.notifyReleaseStages:None}")
     private String[] notifyReleaseStages;
 
     @Bean

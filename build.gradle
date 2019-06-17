@@ -17,6 +17,9 @@ configurations {
     compile.exclude(group: 'ch.qos.logback')
 }
 
+targetCompatibility = '10'
+sourceCompatibility = '10'
+
 dependencies {
     implementation "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
     implementation 'org.springframework.boot:spring-boot-starter-web'
