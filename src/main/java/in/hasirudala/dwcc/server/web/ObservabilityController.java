@@ -14,4 +14,8 @@ public class ObservabilityController {
     public String hello() {
         return "Hello World!";
     }
+
+    @GetMapping("api/yolo")
+    public String yolo() { return "YOLO"; }
+
 }

@@ -12,13 +12,18 @@ _build_db:
 	psql -h localhost -U $(su) -d postgres -c 'create database $(database) with owner dwcc';
 	-psql -h localhost -U $(su) -d $(database) -c 'create extension if not exists "uuid-ossp"';
 
-clean_testdb:
-	make _clean_db database=dwcc_test
-
 build_db: ## Creates new empty database
 	make _build_db database=dwcc
 
 build_testdb: ## Creates new empty database of test database
 	make _build_db database=dwcc_test
+
+clean_db:
+	make _clean_db database=dwcc
+
+clean_testdb:
+	make _clean_db database=dwcc_test
+
+rebuild_db: clean_db build_db ## clean + build db
 
 rebuild_testdb: clean_testdb build_testdb ## clean + build test db
