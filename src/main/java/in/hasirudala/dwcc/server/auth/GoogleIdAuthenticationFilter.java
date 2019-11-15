@@ -8,6 +8,8 @@ import com.google.api.client.http.apache.ApacheHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -38,15 +40,19 @@ public class GoogleIdAuthenticationFilter extends OncePerRequestFilter {
     private HttpTransport httpTransport = new ApacheHttpTransport();
     private static JsonFactory jsonFactory = new JacksonFactory();
 
+    @Value("${google.identityClientId}")
     private String clientId;
 
+    @Value("${google.allowedHostedDomain}")
+    private String allowedHostedDomain;
+
     @Resource
+    @Qualifier("userDetailsService")
     private UserDetailsService userDetailsService;
 
     @Autowired
-    public GoogleIdAuthenticationFilter(UserDetailsService userDetailsService, String clientId) {
+    public GoogleIdAuthenticationFilter(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
-        this.clientId = clientId;
     }
 
     @Override
@@ -91,7 +97,7 @@ public class GoogleIdAuthenticationFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 
-    protected GoogleIdToken getVerifiedToken(GoogleIdAuthenticationToken idAuthenticationToken) throws BadCredentialsException {
+    private GoogleIdToken getVerifiedToken(GoogleIdAuthenticationToken idAuthenticationToken) throws BadCredentialsException {
         GoogleIdTokenVerifier
             verifier = new GoogleIdTokenVerifier.Builder(httpTransport, jsonFactory)
             .setAudience(Collections.singletonList(getClientId()))
@@ -100,26 +106,30 @@ public class GoogleIdAuthenticationFilter extends OncePerRequestFilter {
         GoogleIdToken idToken;
         try {
             idToken = verifier.verify((String) idAuthenticationToken.getCredentials());
-
             if (idToken == null) {
-                throw new BadCredentialsException("Unable to verify token");
+                throw new BadCredentialsException("Unable to verify token. Got NULL.");
             }
-        } catch (IOException | GeneralSecurityException e) {
-            if (this.logger.isErrorEnabled())
-                this.logger.error(e.getMessage());
+            validateDomain(idToken);
 
+        } catch (IOException | GeneralSecurityException e) {
+            if (this.logger.isErrorEnabled()) this.logger.error(e.getMessage());
             throw new BadCredentialsException("Unable to verify token", e);
         }
         return idToken;
     }
 
-    protected UserDetails getUserDetails(GoogleIdToken idToken) {
-        Payload payload = idToken.getPayload();
-        String email = payload.getEmail();
-        return userDetailsService.loadUserByUsername(email);
+    private UserDetails getUserDetails(GoogleIdToken idToken) {
+        return userDetailsService.loadUserByUsername(idToken.getPayload().getEmail());
     }
 
-    public String getClientId() {
-        return clientId;
+    private void validateDomain(GoogleIdToken idToken) {
+        Payload payload = idToken.getPayload();
+        if (!allowedHostedDomain.equals(payload.getHostedDomain())) {
+            throw new BadCredentialsException(
+                String.format("Invalid token. %s is not part of %s organization",
+                    payload.getEmail(), allowedHostedDomain));
+        }
     }
+
+    private String getClientId() { return clientId; }
 }
