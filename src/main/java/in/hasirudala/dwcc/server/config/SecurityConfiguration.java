@@ -34,11 +34,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 filter.getClass()
             )
             .authorizeRequests()
-            .antMatchers("/observability/**").permitAll()
-            //.antMatchers("/api/**").authenticated();
-            .anyRequest().authenticated()
+            .antMatchers("/api/**").authenticated()
             .and()
-            .csrf().disable()
+            //.csrf().disable()
             .formLogin().disable()
             .httpBasic().disable();
     }
