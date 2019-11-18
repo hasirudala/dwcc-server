@@ -24,7 +24,7 @@ jobs:
             - v1-dependencies-{{ checksum "build.gradle" }}
             - v1-dependencies-
 
-      - run: sudo apt-get install make postgresql-client
+      - run: sudo apt-get install make postgresql-client-10.5
 
       - run: make rebuild_testdb && ./gradlew clean test
 
