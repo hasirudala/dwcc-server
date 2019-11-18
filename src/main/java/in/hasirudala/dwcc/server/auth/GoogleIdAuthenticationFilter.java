@@ -108,7 +108,7 @@ public class GoogleIdAuthenticationFilter extends OncePerRequestFilter {
         try {
             idToken = verifier.verify((String) idAuthenticationToken.getCredentials());
             if (idToken == null) {
-                throw new BadCredentialsException("Unable to verify token. Got NULL.");
+                throw new BadCredentialsException("Verification failed. Got expired or invalid token.");
             }
             validateDomain(idToken);
 
