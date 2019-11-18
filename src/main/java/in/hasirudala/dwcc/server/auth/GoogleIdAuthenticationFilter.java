@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -113,7 +114,7 @@ public class GoogleIdAuthenticationFilter extends OncePerRequestFilter {
 
         } catch (IOException | GeneralSecurityException e) {
             if (this.logger.isErrorEnabled()) this.logger.error(e.getMessage());
-            throw new BadCredentialsException("Unable to verify token", e);
+            throw new AuthenticationServiceException("Unable to verify token", e);
         }
         return idToken;
     }

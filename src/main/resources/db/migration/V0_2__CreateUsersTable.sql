@@ -1,9 +1,4 @@
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
-SET TIMEZONE='Asia/Kolkata';
-
-CREATE TABLE authorized_users
-(
+CREATE TABLE authorized_users (
     id                      SERIAL PRIMARY KEY,
     email                   CHARACTER VARYING(255)    NOT NULL UNIQUE,
     name                    CHARACTER VARYING(255)    NOT NULL,

@@ -1,12 +1,15 @@
 package in.hasirudala.dwcc.server.domain;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "authorized_users")
+@Audited
+@Table(name = "authorized_users", uniqueConstraints = {@UniqueConstraint(columnNames = {"email", "uuid"})})
 public class AuthorizedUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +34,7 @@ public class AuthorizedUser {
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "uuid", updatable = false, unique = true, nullable = false)
+    @NotAudited
     private UUID uuid;
 
     public Integer getId() { return id; }
