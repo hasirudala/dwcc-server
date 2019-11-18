@@ -41,10 +41,10 @@ public class GoogleIdAuthenticationFilter extends OncePerRequestFilter {
     private HttpTransport httpTransport = new ApacheHttpTransport();
     private static JsonFactory jsonFactory = new JacksonFactory();
 
-    @Value("${google.identityClientId}")
+    @Value("${google.identityClientId:dummy}")
     private String clientId;
 
-    @Value("${google.allowedHostedDomain}")
+    @Value("${google.allowedHostedDomain:dummy}")
     private String allowedHostedDomain;
 
     @Resource
