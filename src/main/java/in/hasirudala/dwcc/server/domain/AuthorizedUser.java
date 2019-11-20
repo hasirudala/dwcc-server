@@ -20,7 +20,7 @@ public class AuthorizedUser {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "email")
+    @Column(name = "email", updatable = false, unique = true, nullable = false)
     @NotBlank(message = "email cannot be blank")
     private String email;
 

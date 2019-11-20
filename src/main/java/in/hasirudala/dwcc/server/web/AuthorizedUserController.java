@@ -32,7 +32,7 @@ public class AuthorizedUserController {
 
     @GetMapping
     public Page<AuthorizedUser> listUsers(Pageable pageable) {
-        return userService.getUsersList(pageable);
+        return userService.getNonDeletedUsers(pageable);
     }
 
     @GetMapping("/{id}")

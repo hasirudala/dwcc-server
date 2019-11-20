@@ -27,7 +27,7 @@ public class AuthorizedUserService {
         return userRepository.save(user);
     }
 
-    public Page<AuthorizedUser> getUsersList(Pageable pageable) {
+    public Page<AuthorizedUser> getNonDeletedUsers(Pageable pageable) {
         return userRepository.findAllByIsFauxDeletedFalse(pageable);
     }
 
@@ -45,7 +45,6 @@ public class AuthorizedUserService {
                             .orElseThrow(() -> new NoSuchElementException(
                                 String.format("User with id %d doesn't exist", id)));
         existingUser.setName(user.getName());
-        existingUser.setEmail(user.getEmail());
         existingUser.setAdmin(user.isAdmin());
         existingUser.setDisabled(user.isDisabled());
         userRepository.save(existingUser);
@@ -57,8 +56,9 @@ public class AuthorizedUserService {
                             .findById(id)
                             .orElseThrow(() -> new NoSuchElementException(
                                 String.format("User with id %d doesn't exist", id)));
-
         existingUser.setFauxDeleted(true);
+        // on setting fauxDeleted to true, a trigger in the db will append [deleted on <time>] string to faux deleted user's email
+        // refer https://github.com/hasirudala/dwcc-server/blob/master/src/main/resources/db/migration/V0_2__CreateUsersTable.sql
         userRepository.save(existingUser);
     }
 }
