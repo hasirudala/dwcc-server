@@ -31,7 +31,8 @@ public class DwccUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("User with email %s not found", email));
 
         List<SimpleGrantedAuthority>
-            authorities = Collections.singletonList(new SimpleGrantedAuthority(user.isAdmin() ? "ADMIN" : "USER"));
+            authorities = Collections.singletonList(new SimpleGrantedAuthority(
+                user.isAdmin() ? "ADMIN" : "USER"));
 
         return new User(user.getEmail(), "", authorities);
     }

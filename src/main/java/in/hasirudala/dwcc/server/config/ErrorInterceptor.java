@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,11 +36,14 @@ public class ErrorInterceptor {
         this.bugsnag = bugsnag;
     }
 
-    @ExceptionHandler(value = {Exception.class})
-    public ResponseEntity<?> reportUnhandledException(Exception e, HttpServletResponse response) throws IOException {
-        Report report = bugsnag.buildReport(e);
-        bugsnag.notify(report);
-        logger.error(e.getMessage(), e);
+    @ExceptionHandler({
+        DataIntegrityViolationException.class,
+        MethodArgumentNotValidException.class,
+        AccessDeniedException.class
+    })
+    public ResponseEntity<?> handleApiExceptions(Exception e, HttpServletResponse response) throws IOException {
+        logger.error(e.getMessage());
+
         if (e instanceof DataIntegrityViolationException) {
             response.sendError(BadRequest.value());
         }
@@ -47,6 +51,19 @@ public class ErrorInterceptor {
             Map<String, Object> body = buildMANVResponseBody((MethodArgumentNotValidException) e);
             return new ResponseEntity<>(body, BadRequest);
         }
+
+        // if AccessDeniedException
+        response.sendError(HttpStatus.FORBIDDEN.value());
+
+        // will never come here
+        return new ResponseEntity<>(InternalServerError);
+    }
+
+    @ExceptionHandler({Exception.class})
+    public ResponseEntity<?> reportUnhandledException(Exception e) {
+        Report report = bugsnag.buildReport(e);
+        bugsnag.notify(report);
+        logger.error(e.getMessage(), e);
         return ResponseEntity.status(InternalServerError).body(e.getMessage());
     }
 
