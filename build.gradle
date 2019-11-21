@@ -13,6 +13,7 @@ repositories {
 }
 
 configurations {
+    dev
     providedRuntime
     compile.exclude(group: 'ch.qos.logback')
 }
@@ -35,6 +36,7 @@ dependencies {
     compile "org.hibernate:hibernate-envers:5.4.9.Final"
     compile "javax.xml.bind:jaxb-api:2.3.1"
     compile "org.glassfish.jaxb:jaxb-runtime:2.3.2"
+    dev "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -52,3 +54,9 @@ dependencies {
 
 // Define the main class for the application
 mainClassName = 'in.hasirudala.dwcc.server.App'
+
+test {
+    testLogging {
+        events "passed", "failed", "skipped"
+    }
+}

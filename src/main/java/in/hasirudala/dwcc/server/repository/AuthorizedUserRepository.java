@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AuthorizedUserRepository extends JpaRepository<AuthorizedUser, Long> {
 
-    AuthorizedUser findByEmailAndIsDisabledFalseAndIsFauxDeletedFalse(String email);
+    AuthorizedUser findByEmailAndIsFauxDeletedFalse(String email);
 
     Page<AuthorizedUser> findAllByIsFauxDeletedFalse(Pageable pageable);
 }

@@ -34,31 +34,32 @@ public class AuthorizedUserService {
     public AuthorizedUser getUserById(Long id) {
         return userRepository
                 .findById(id)
-                .orElseThrow(() -> new NoSuchElementException(
-                    String.format("User with id %d doesn't exist", id)));
+                .orElseThrow(() -> new NoSuchElementException(getUserNotFoundMsg(id)));
     }
 
-    public void update(Long id, AuthorizedUser user) {
+    public AuthorizedUser update(Long id, AuthorizedUser user) {
         AuthorizedUser
             existingUser = userRepository
                             .findById(id)
-                            .orElseThrow(() -> new NoSuchElementException(
-                                String.format("User with id %d doesn't exist", id)));
+                            .orElseThrow(() -> new NoSuchElementException(getUserNotFoundMsg(id)));
         existingUser.setName(user.getName());
         existingUser.setAdmin(user.isAdmin());
-        existingUser.setDisabled(user.isDisabled());
-        userRepository.save(existingUser);
+        return userRepository.save(existingUser);
     }
 
     public void deleteUser(Long id) {
         AuthorizedUser
             existingUser = userRepository
                             .findById(id)
-                            .orElseThrow(() -> new NoSuchElementException(
-                                String.format("User with id %d doesn't exist", id)));
+                            .orElseThrow(() -> new NoSuchElementException(getUserNotFoundMsg(id)));
         existingUser.setFauxDeleted(true);
-        // on setting fauxDeleted to true, a trigger in the db will append [deleted on <time>] string to faux deleted user's email
-        // refer https://github.com/hasirudala/dwcc-server/blob/master/src/main/resources/db/migration/V0_2__CreateUsersTable.sql
+        // on setting fauxDeleted to true, a trigger will append
+        // [deleted on <time>] string to soft-deleted user's email.
+        // https://git.io/Je6aG
         userRepository.save(existingUser);
+    }
+
+    private String getUserNotFoundMsg(Long id) {
+        return String.format("User with id %d doesn't exist", id);
     }
 }

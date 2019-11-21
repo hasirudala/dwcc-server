@@ -3,7 +3,6 @@ CREATE TABLE authorized_users (
     email                   CHARACTER VARYING(255)    NOT NULL UNIQUE,
     name                    CHARACTER VARYING(255)    NOT NULL,
     is_admin                BOOLEAN DEFAULT FALSE     NOT NULL,
-    is_disabled             BOOLEAN DEFAULT FALSE     NOT NULL,
     is_faux_deleted         BOOLEAN DEFAULT FALSE     NOT NULL,
     uuid                    CHARACTER VARYING(255)    NOT NULL UNIQUE
 );
@@ -14,7 +13,6 @@ INSERT INTO authorized_users
     'dwcc.admin@hasirudala.in',
     'Default Admin',
     true,
-    false,
     false,
     uuid_generate_v4()
 );

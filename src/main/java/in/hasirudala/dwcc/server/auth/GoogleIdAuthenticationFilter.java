@@ -21,6 +21,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -41,7 +42,7 @@ public class GoogleIdAuthenticationFilter extends OncePerRequestFilter {
     private HttpTransport httpTransport = new ApacheHttpTransport();
     private static JsonFactory jsonFactory = new JacksonFactory();
 
-    @Value("${google.identityClientId:dummy}")
+    @Value("${google.identityClientId}")
     private String clientId;
 
     @Value("${google.allowedHostedDomain:dummy}")
@@ -54,6 +55,17 @@ public class GoogleIdAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     public GoogleIdAuthenticationFilter(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
+    }
+
+    @PostConstruct
+    public void onInit() {
+        if (this.logger.isInfoEnabled())
+            this.logger.info(
+                String.format(
+                    "Initialised filter with googleIdentityClientId=%s and allowedHostedDomain=%s",
+                    clientId,
+                    allowedHostedDomain
+                ));
     }
 
     @Override

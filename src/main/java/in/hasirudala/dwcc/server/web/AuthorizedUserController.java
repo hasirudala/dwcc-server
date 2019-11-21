@@ -49,12 +49,13 @@ public class AuthorizedUserController {
     @RequestMapping(value = "/{id}", method = { RequestMethod.PUT, RequestMethod.PATCH })
     @Transactional
     public ResponseEntity<AuthorizedUser> updateUser(@PathVariable("id") Long id, @Valid @RequestBody AuthorizedUser user) {
+        AuthorizedUser updatedUser;
         try {
-            userService.update(id, user);
+            updatedUser = userService.update(id, user);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(updatedUser, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")

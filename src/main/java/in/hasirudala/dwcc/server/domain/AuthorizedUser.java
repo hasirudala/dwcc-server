@@ -8,12 +8,11 @@ import org.hibernate.envers.NotAudited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
 @Audited
-@Table(name = "authorized_users", uniqueConstraints = {@UniqueConstraint(columnNames = {"email", "uuid"})})
+@Table(name = "authorized_users")
 public class AuthorizedUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,17 +23,11 @@ public class AuthorizedUser {
     @NotBlank(message = "email cannot be blank")
     private String email;
 
-    @Column(name = "name")
-    @NotBlank(message = "name cannot be blank")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "is_admin")
-    @NotNull(message = "isAdmin cannot be null")
-    private Boolean isAdmin;
-
-    @Column(name = "is_disabled")
-    @NotNull(message = "isDisabled cannot be null")
-    private Boolean isDisabled = false;
+    private Boolean isAdmin = false;
 
     @Column(name = "is_faux_deleted")
     private Boolean isFauxDeleted = false;
@@ -62,11 +55,6 @@ public class AuthorizedUser {
     public Boolean isAdmin() { return isAdmin; }
 
     public void setAdmin(Boolean admin) { isAdmin = admin; }
-
-    @JsonProperty("isDisabled")
-    public Boolean isDisabled() { return isDisabled; }
-
-    public void setDisabled(Boolean disabled) { isDisabled = disabled; }
 
     @JsonIgnore
     public Boolean isFauxDeleted() { return isFauxDeleted; }
