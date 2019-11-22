@@ -28,8 +28,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
             .addFilterBefore(filter, AbstractPreAuthenticatedProcessingFilter.class)
             .addFilterBefore(
                 new ExceptionTranslationFilter(new Http403ForbiddenEntryPoint()),
@@ -37,6 +35,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             )
             .authorizeRequests()
             .antMatchers("/api/**").authenticated()
+            .and()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .csrf().disable()
             .formLogin().disable()

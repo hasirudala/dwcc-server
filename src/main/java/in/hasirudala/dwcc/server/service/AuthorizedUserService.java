@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
@@ -54,9 +55,14 @@ public class AuthorizedUserService {
                             .orElseThrow(() -> new NoSuchElementException(getUserNotFoundMsg(id)));
         existingUser.setFauxDeleted(true);
         // on setting fauxDeleted to true, a trigger will append
-        // [deleted on <time>] string to soft-deleted user's email.
+        // [deleted on <time>] string to this user's "email" field.
         // https://git.io/Je6aG
         userRepository.save(existingUser);
+    }
+
+    public AuthorizedUser getCurrentlyLoggedInUser() {
+        String emailId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return (userRepository.findByEmailAndIsFauxDeletedFalse(emailId));
     }
 
     private String getUserNotFoundMsg(Long id) {

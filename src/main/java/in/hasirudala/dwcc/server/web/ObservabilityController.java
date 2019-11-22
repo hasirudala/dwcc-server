@@ -15,7 +15,4 @@ public class ObservabilityController {
         return "Hello World!";
     }
 
-    @GetMapping("/api/checkAuthorization") // Unauthorized requests will fail
-    public String checkAuthorization() { return "SUCCESS"; }
-
 }

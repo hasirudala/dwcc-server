@@ -37,6 +37,13 @@ public class AuthorizedUserController {
         return userService.getNonDeletedUsers(pageable);
     }
 
+    @RequestMapping(value="/self", method=RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    public ResponseEntity<AuthorizedUser> getLoggedInUser() {
+        AuthorizedUser user = userService.getCurrentlyLoggedInUser();
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<AuthorizedUser> getUser(@PathVariable("id") Long id) {
         AuthorizedUser user;
