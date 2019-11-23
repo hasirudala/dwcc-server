@@ -34,10 +34,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/api/**").authenticated()
             .and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
             .csrf().disable()
             .formLogin().disable()
-            .httpBasic().disable();
+            .httpBasic().disable()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 }
