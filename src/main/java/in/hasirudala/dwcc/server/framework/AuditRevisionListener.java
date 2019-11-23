@@ -1,4 +1,4 @@
-package in.hasirudala.dwcc.server.config;
+package in.hasirudala.dwcc.server.framework;
 
 import in.hasirudala.dwcc.server.domain.AuditRevisionEntity;
 import org.hibernate.envers.RevisionListener;

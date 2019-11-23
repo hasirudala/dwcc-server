@@ -105,6 +105,7 @@ public class GoogleIdAuthenticationFilter extends OncePerRequestFilter {
                 this.logger.error(e.getMessage());
 
             SecurityContextHolder.clearContext();
+            throw e;
         }
 
         chain.doFilter(request, response);
@@ -126,7 +127,7 @@ public class GoogleIdAuthenticationFilter extends OncePerRequestFilter {
 
         } catch (IOException | GeneralSecurityException e) {
             if (this.logger.isErrorEnabled()) this.logger.error(e.getMessage());
-            throw new AuthenticationServiceException("Unable to verify token", e);
+            throw new AuthenticationServiceException("Unable to verify token. " + e.getMessage(), e);
         }
         return idToken;
     }

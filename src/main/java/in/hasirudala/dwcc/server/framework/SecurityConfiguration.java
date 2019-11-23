@@ -1,4 +1,4 @@
-package in.hasirudala.dwcc.server.config;
+package in.hasirudala.dwcc.server.framework;
 
 import in.hasirudala.dwcc.server.auth.GoogleIdAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.access.ExceptionTranslationFilter;
-import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
 
@@ -30,7 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
             .addFilterBefore(filter, AbstractPreAuthenticatedProcessingFilter.class)
             .addFilterBefore(
-                new ExceptionTranslationFilter(new Http403ForbiddenEntryPoint()),
+                new CustomExceptionTranslationFilter(new CustomAuthenticationEntryPoint()),
                 filter.getClass()
             )
             .authorizeRequests()

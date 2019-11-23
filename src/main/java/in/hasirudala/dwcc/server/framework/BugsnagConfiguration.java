@@ -1,4 +1,4 @@
-package in.hasirudala.dwcc.server.config;
+package in.hasirudala.dwcc.server.framework;
 
 import com.bugsnag.Bugsnag;
 import com.bugsnag.BugsnagSpringConfiguration;
