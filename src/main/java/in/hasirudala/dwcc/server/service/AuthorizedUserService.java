@@ -28,8 +28,8 @@ public class AuthorizedUserService {
         return userRepository.save(user);
     }
 
-    public Page<AuthorizedUser> getNonDeletedUsers(Pageable pageable) {
-        return userRepository.findAllByIsFauxDeletedFalse(pageable);
+    public Page<AuthorizedUser> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     public AuthorizedUser getUserById(Long id) {
@@ -53,16 +53,12 @@ public class AuthorizedUserService {
             existingUser = userRepository
                             .findById(id)
                             .orElseThrow(() -> new NoSuchElementException(getUserNotFoundMsg(id)));
-        existingUser.setFauxDeleted(true);
-        // on setting fauxDeleted to true, a trigger will append
-        // [deleted on <time>] string to this user's "email" field.
-        // https://git.io/Je6aG
-        userRepository.save(existingUser);
+        userRepository.delete(existingUser);
     }
 
     public AuthorizedUser getCurrentlyLoggedInUser() {
         String emailId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return (userRepository.findByEmailAndIsFauxDeletedFalse(emailId));
+        return (userRepository.findByEmail(emailId));
     }
 
     private String getUserNotFoundMsg(Long id) {

@@ -25,7 +25,7 @@ public class DwccUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        AuthorizedUser user = userRepository.findByEmailAndIsFauxDeletedFalse(email);
+        AuthorizedUser user = userRepository.findByEmail(email);
 
         if (user == null)
             throw new UsernameNotFoundException(String.format("User with email %s not found", email));

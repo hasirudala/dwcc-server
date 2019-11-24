@@ -34,7 +34,7 @@ public class AuthorizedUserController {
 
     @GetMapping
     public Page<AuthorizedUser> listUsers(Pageable pageable) {
-        return userService.getNonDeletedUsers(pageable);
+        return userService.getAllUsers(pageable);
     }
 
     @RequestMapping(value="/self", method=RequestMethod.GET)

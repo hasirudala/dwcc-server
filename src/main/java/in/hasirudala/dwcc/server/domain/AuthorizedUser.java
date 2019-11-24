@@ -1,6 +1,5 @@
 package in.hasirudala.dwcc.server.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.envers.Audited;
@@ -29,9 +28,6 @@ public class AuthorizedUser {
     @Column(name = "is_admin")
     private Boolean isAdmin = false;
 
-    @Column(name = "is_faux_deleted")
-    private Boolean isFauxDeleted = false;
-
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -55,12 +51,6 @@ public class AuthorizedUser {
     public Boolean isAdmin() { return isAdmin; }
 
     public void setAdmin(Boolean admin) { isAdmin = admin; }
-
-    @JsonIgnore
-    public Boolean isFauxDeleted() { return isFauxDeleted; }
-
-    @JsonIgnore
-    public void setFauxDeleted(Boolean fauxDeleted) { isFauxDeleted = fauxDeleted; }
 
     public UUID getUuid() { return uuid; }
 
