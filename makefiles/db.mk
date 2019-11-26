@@ -11,6 +11,7 @@ _build_db:
 	-psql -h localhost -U $(su) -d postgres -c "create user dwcc with password 'password' createrole";
 	psql -h localhost -U $(su) -d postgres -c 'create database $(database) with owner dwcc';
 	-psql -h localhost -U $(su) -d $(database) -c 'create extension if not exists "uuid-ossp"';
+	-psql -h localhost -U $(su) -d $(database) -c 'create extension if not exists "citext"';
 
 build_db: ## Creates new empty database
 	make _build_db database=dwcc

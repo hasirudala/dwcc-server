@@ -1,4 +1,3 @@
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 SET TIMEZONE='Asia/Kolkata';
 
