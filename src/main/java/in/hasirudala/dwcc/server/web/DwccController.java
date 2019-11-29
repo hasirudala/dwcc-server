@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -43,6 +44,7 @@ public class DwccController {
         return new ResponseEntity<>(dwcc, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     @Transactional
     public ResponseEntity<Dwcc> create(@RequestBody DwccRequestContract payload) {
@@ -59,6 +61,7 @@ public class DwccController {
         return new ResponseEntity<>(newDwcc, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<Dwcc> update(@PathVariable("id") Long id, @RequestBody DwccRequestContract payload) {
@@ -83,6 +86,7 @@ public class DwccController {
         return new ResponseEntity<>(existingDwcc, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Dwcc> delete(@PathVariable("id") Long id) {

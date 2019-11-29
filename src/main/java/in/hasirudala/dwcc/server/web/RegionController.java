@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -41,6 +42,7 @@ public class RegionController {
         return new ResponseEntity<>(region, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     @Transactional
     public ResponseEntity<Region> create(@RequestBody Region region) {
@@ -49,6 +51,7 @@ public class RegionController {
         return new ResponseEntity<>(newRegion, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<Region> update(@PathVariable("id") Long id, @RequestBody Region region) {
@@ -67,6 +70,7 @@ public class RegionController {
         return new ResponseEntity<>(existingRegion, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Region> delete(@PathVariable("id") Long id) {

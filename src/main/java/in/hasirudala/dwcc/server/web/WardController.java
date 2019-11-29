@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -43,6 +44,7 @@ public class WardController {
         return new ResponseEntity<>(ward, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     @Transactional
     public ResponseEntity<Ward> create(@RequestBody WardRequestContract payload) {
@@ -54,6 +56,7 @@ public class WardController {
         return new ResponseEntity<>(newWard, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<Ward> update(@PathVariable("id") Long id, @RequestBody WardRequestContract payload) {
@@ -73,6 +76,7 @@ public class WardController {
         return new ResponseEntity<>(existingWard, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Ward> delete(@PathVariable("id") Long id) {
