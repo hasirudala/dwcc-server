@@ -36,7 +36,6 @@ public class ErrorInterceptor {
     public ResponseEntity<?> handleSomeExceptions(Exception e) {
         logger.error(e.getMessage());
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("status", InternalServerError.value());
         if (e instanceof DataIntegrityViolationException) {
             try {
                 body.put("message", ((DataIntegrityViolationException) e).getRootCause().getMessage());
@@ -44,11 +43,13 @@ public class ErrorInterceptor {
             catch (NullPointerException e2) {
                 body.put("message", e.getCause().getMessage());
             }
+            body.put("status", InternalServerError.value());
+            return ResponseEntity.status(InternalServerError).body(body);
         }
-        else {
-            body.put("message", e.getMessage());
-        }
-        return ResponseEntity.status(InternalServerError).body(body);
+        // else if AccessDeniedException
+        body.put("message", e.getMessage());
+        body.put("status", HttpStatus.FORBIDDEN.value());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(body);
     }
 
     @ExceptionHandler({Exception.class})
