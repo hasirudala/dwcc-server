@@ -1,0 +1,26 @@
+[Unit]
+Description=DWCC SpringBoot Server
+
+Environment=WDIR=/home/app/dwcc-live/server
+ConditionPathExists=${WDIR}
+
+[Service]
+User=www-data
+
+WorkingDirectory=${WDIR}
+EnvironmentFile=${WDIR}/.env.local
+
+ExecStart=/usr/bin/java -jar ${WDIR}/dwcc-server.jar
+
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /var/log/dwcc
+ExecStartPre=/bin/chown www-data:www-data /var/log/dwcc
+ExecStartPre=/bin/chmod -R 775 /var/log/dwcc
+
+SuccessExitStatus=143
+TimeoutStopSec=10
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
