@@ -1,6 +1,6 @@
 package in.hasirudala.dwcc.server.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -14,6 +14,7 @@ public class Ward extends BaseEntity {
     @NotNull
     private String name;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne
     @JoinColumn(name = "region_id", nullable = false)
     @NotNull
@@ -23,7 +24,6 @@ public class Ward extends BaseEntity {
 
     public void setName(String name) { this.name = name; }
 
-    @JsonIgnore
     public Region getRegion() { return region; }
 
     public void setRegion(Region region) { this.region = region; }

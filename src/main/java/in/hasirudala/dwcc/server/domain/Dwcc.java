@@ -1,6 +1,5 @@
 package in.hasirudala.dwcc.server.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.envers.Audited;
 
@@ -41,7 +40,6 @@ public class Dwcc extends BaseEntity {
 
     public void setName(String name) { this.name = name; }
 
-    @JsonIgnore
     public Ward getWard() {
         return ward;
     }
