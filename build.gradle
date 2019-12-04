@@ -33,7 +33,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-security:2.2.+"
     compile "com.google.api-client:google-api-client:1.30.4"
     compile "com.google.http-client:google-http-client-apache:2.0.0"
-    compile "org.hibernate:hibernate-envers:5.4.9.Final"
+    compile "org.hibernate:hibernate-envers:5.3.10.Final"
     compile "javax.xml.bind:jaxb-api:2.3.1"
     compile "org.glassfish.jaxb:jaxb-runtime:2.3.2"
     dev "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
