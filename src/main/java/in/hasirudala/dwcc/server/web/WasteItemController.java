@@ -6,7 +6,7 @@ import in.hasirudala.dwcc.server.domain.WasteType;
 import in.hasirudala.dwcc.server.repository.WasteItemRepository;
 import in.hasirudala.dwcc.server.repository.WasteTagRepository;
 import in.hasirudala.dwcc.server.repository.WasteTypeRepository;
-import in.hasirudala.dwcc.server.web.contract.WasteItemRequestContract;
+import in.hasirudala.dwcc.server.web.contract.WasteItemRequest;
 import in.hasirudala.dwcc.server.web.messages.ErrorMessages;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -56,7 +56,7 @@ public class WasteItemController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     @Transactional
-    public ResponseEntity<WasteItem> create(@RequestBody WasteItemRequestContract payload) {
+    public ResponseEntity<WasteItem> create(@RequestBody WasteItemRequest payload) {
         WasteItem newItem = new WasteItem();
         newItem.assignUuid();
         newItem.setName(payload.getName());
@@ -86,7 +86,7 @@ public class WasteItemController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<WasteItem> update(@PathVariable("id") Long id, @RequestBody WasteItemRequestContract payload) {
+    public ResponseEntity<WasteItem> update(@PathVariable("id") Long id, @RequestBody WasteItemRequest payload) {
         WasteItem existingItem;
         try {
             existingItem = wasteItemRepository

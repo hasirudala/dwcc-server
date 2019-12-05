@@ -1,11 +1,11 @@
 package in.hasirudala.dwcc.server.web.contract;
 
 
-public class WasteTagRequestContract {
+public class WardRequest {
     private Long id;
     private String uuid;
     private String name;
-    private Long typeId = null;
+    private Long regionId;
 
     public Long getId() {
         return id;
@@ -31,11 +31,11 @@ public class WasteTagRequestContract {
         this.name = name;
     }
 
-    public Long getTypeId() {
-        return typeId;
+    public Long getRegionId() {
+        return regionId;
     }
 
-    public void setTypeId(Long wasteTypeId) {
-        this.typeId = wasteTypeId;
+    public void setRegionId(Long regionId) {
+        this.regionId = regionId;
     }
 }

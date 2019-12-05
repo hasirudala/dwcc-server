@@ -3,7 +3,7 @@ package in.hasirudala.dwcc.server.web.contract;
 
 import java.sql.Date;
 
-public class DwccRequestContract {
+public class DwccRequest {
     private Long id;
     private String uuid;
     private String name;

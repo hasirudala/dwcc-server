@@ -3,7 +3,7 @@ package in.hasirudala.dwcc.server.web;
 import in.hasirudala.dwcc.server.domain.Dwcc;
 import in.hasirudala.dwcc.server.repository.DwccRepository;
 import in.hasirudala.dwcc.server.repository.WardRepository;
-import in.hasirudala.dwcc.server.web.contract.DwccRequestContract;
+import in.hasirudala.dwcc.server.web.contract.DwccRequest;
 import in.hasirudala.dwcc.server.web.messages.ErrorMessages;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,7 +47,7 @@ public class DwccController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     @Transactional
-    public ResponseEntity<Dwcc> create(@RequestBody DwccRequestContract payload) {
+    public ResponseEntity<Dwcc> create(@RequestBody DwccRequest payload) {
         Dwcc newDwcc = new Dwcc();
         newDwcc.setName(payload.getName());
         newDwcc.setWard(wardRepository.getOne(payload.getWardId()));
@@ -64,7 +64,7 @@ public class DwccController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<Dwcc> update(@PathVariable("id") Long id, @RequestBody DwccRequestContract payload) {
+    public ResponseEntity<Dwcc> update(@PathVariable("id") Long id, @RequestBody DwccRequest payload) {
         Dwcc existingDwcc;
         try {
             existingDwcc = dwccRepository

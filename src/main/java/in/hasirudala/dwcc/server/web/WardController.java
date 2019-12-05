@@ -3,7 +3,7 @@ package in.hasirudala.dwcc.server.web;
 import in.hasirudala.dwcc.server.domain.Ward;
 import in.hasirudala.dwcc.server.repository.RegionRepository;
 import in.hasirudala.dwcc.server.repository.WardRepository;
-import in.hasirudala.dwcc.server.web.contract.WardRequestContract;
+import in.hasirudala.dwcc.server.web.contract.WardRequest;
 import in.hasirudala.dwcc.server.web.messages.ErrorMessages;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,7 +47,7 @@ public class WardController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     @Transactional
-    public ResponseEntity<Ward> create(@RequestBody WardRequestContract payload) {
+    public ResponseEntity<Ward> create(@RequestBody WardRequest payload) {
         Ward newWard = new Ward();
         newWard.setName(payload.getName());
         newWard.setRegion(regionRepository.getOne(payload.getRegionId()));
@@ -59,7 +59,7 @@ public class WardController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<Ward> update(@PathVariable("id") Long id, @RequestBody WardRequestContract payload) {
+    public ResponseEntity<Ward> update(@PathVariable("id") Long id, @RequestBody WardRequest payload) {
         Ward existingWard;
         try {
             existingWard = wardRepository
