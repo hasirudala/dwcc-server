@@ -1,0 +1,5 @@
+CREATE TABLE vehicle_types (
+  id   SERIAL PRIMARY KEY,
+  name CITEXT NOT NULL UNIQUE,
+  uuid UUID   NOT NULL UNIQUE
+);
