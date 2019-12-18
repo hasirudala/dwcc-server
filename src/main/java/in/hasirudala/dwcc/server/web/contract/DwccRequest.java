@@ -3,9 +3,7 @@ package in.hasirudala.dwcc.server.web.contract;
 
 import java.sql.Date;
 
-public class DwccRequest {
-    private Long id;
-    private String uuid;
+public class DwccRequest extends BaseRequest{
     private String name;
     private Long wardId;
     private String ownerOrAgencyName;
@@ -13,22 +11,6 @@ public class DwccRequest {
     private Date operatingSince;
     private Integer areaInSqFt;
     private Boolean isMouMoaSigned;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
 
     public String getName() {
         return name;

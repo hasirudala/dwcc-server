@@ -15,7 +15,10 @@ import java.util.stream.Collectors;
 public class IncomingMixedWaste extends BaseEntity {
     //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     @JoinTable(name = "incoming_waste_mixed_items",
             joinColumns = {@JoinColumn(name = "mixed_waste_id")},
             inverseJoinColumns = {@JoinColumn(name = "item_id")})
