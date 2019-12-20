@@ -23,7 +23,10 @@ public class IncomingWasteRecord extends BaseEntity {
     @NotNull
     private Dwcc dwcc;
 
+    @Column
     private Boolean errorsIgnored = false;
+
+    @Column
     private Boolean approvedByAdmin = false;
 
     @Column(name = "notes")
