@@ -43,7 +43,7 @@ public class GoogleIdAuthenticationFilter extends OncePerRequestFilter {
     private AuthenticationDetailsSource<HttpServletRequest, ?>
         authenticationDetailsSource = new WebAuthenticationDetailsSource();
 
-    private HttpTransport httpTransport = new ApacheHttpTransport();
+    private HttpTransport httpTransport = new ApacheHttpTransport(CustomHttpClient.newHttpClient());
     private static JsonFactory jsonFactory = new JacksonFactory();
 
     @Value("${google.identityClientId}")
