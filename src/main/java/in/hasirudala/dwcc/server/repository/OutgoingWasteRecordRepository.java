@@ -7,7 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
+
+import java.sql.Date;
 
 
 @Repository
@@ -23,4 +26,8 @@ public interface OutgoingWasteRecordRepository extends JpaRepository<OutgoingWas
             @Param("dwccId") Integer dwccId,
             Pageable pageable
     );
+
+    @RestResource(path = "existsForDate", rel = "existsForDate")
+    boolean existsByDateAndDwcc_Id(@Param("date") Date date, @Param("dwccId") Long dwccId);
+
 }

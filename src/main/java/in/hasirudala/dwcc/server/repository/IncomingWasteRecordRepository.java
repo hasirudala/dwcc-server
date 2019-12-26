@@ -7,15 +7,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
+
+import java.sql.Date;
 
 
 @Repository
 @RepositoryRestResource(collectionResourceRel = "incomingWaste", path = "incomingWaste")
 public interface IncomingWasteRecordRepository extends JpaRepository<IncomingWasteRecord, Long> {
     @Query(value =
-            "SELECT * FROM incoming_waste_records " +
-            "WHERE extract (MONTH FROM date) = :m AND extract (YEAR FROM date) = :y AND dwcc_id = :dwccId",
+                   "SELECT * FROM incoming_waste_records " +
+                           "WHERE extract (MONTH FROM date) = :m AND extract (YEAR FROM date) = :y " +
+                           "AND dwcc_id = :dwccId",
             nativeQuery = true)
     Page<IncomingWasteRecord> getDwccRecordsByMonthYear(
             @Param("m") Integer m,
@@ -23,4 +27,7 @@ public interface IncomingWasteRecordRepository extends JpaRepository<IncomingWas
             @Param("dwccId") Integer dwccId,
             Pageable pageable
     );
+
+    @RestResource(path = "existsForDate", rel = "existsForDate")
+    boolean existsByDateAndDwcc_Id(@Param("date") Date date, @Param("dwccId") Long dwccId);
 }
