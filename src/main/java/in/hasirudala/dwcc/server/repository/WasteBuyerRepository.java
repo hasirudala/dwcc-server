@@ -15,6 +15,6 @@ public interface WasteBuyerRepository extends JpaRepository<WasteBuyer, Long> {
     @RestResource(path = "findAllById", rel = "findAllById")
     List<WasteBuyer> findByIdIn(@Param("ids") Long[] ids);
 
-    @RestResource(path = "byName", rel = "byName")
-    List<WasteBuyer> findByNameContainsIgnoreCase(@Param("q") String q);
+    @RestResource(path = "byRegion", rel = "byRegion")
+    List<WasteBuyer> findByRegion_Id(@Param("id") Long id);
 }

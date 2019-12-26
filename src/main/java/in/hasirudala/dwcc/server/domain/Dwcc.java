@@ -33,8 +33,17 @@ public class Dwcc extends BaseEntity {
     @Column(name = "area_in_sqft")
     private Integer areaInSqFt;
 
-    @Column(name = "is_mou_moa_signed")
-    private Boolean isMouMoaSigned;
+    @Column(name = "is_mou_signed")
+    private Boolean isMouSigned;
+
+    @Column(name = "date_mou_signed")
+    private Date dateMouSigned;
+
+    @Column(name = "date_mou_expires")
+    private Date dateMouExpires;
+
+    @Column(name = "is_moa_signed")
+    private Boolean isMoaSigned;
 
     public String getName() { return name; }
 
@@ -80,12 +89,36 @@ public class Dwcc extends BaseEntity {
         this.areaInSqFt = areaInSqFt;
     }
 
-    public Boolean getMouMoaSigned() {
-        return isMouMoaSigned;
+    public Boolean getMouSigned() {
+        return isMouSigned;
     }
 
-    public void setMouMoaSigned(Boolean mouMoaSigned) {
-        isMouMoaSigned = mouMoaSigned;
+    public void setMouSigned(Boolean mouSigned) {
+        isMouSigned = mouSigned;
+    }
+
+    public Date getDateMouSigned() {
+        return dateMouSigned;
+    }
+
+    public void setDateMouSigned(Date dateMouSigned) {
+        this.dateMouSigned = dateMouSigned;
+    }
+
+    public Date getDateMouExpires() {
+        return dateMouExpires;
+    }
+
+    public void setDateMouExpires(Date dateMouExpires) {
+        this.dateMouExpires = dateMouExpires;
+    }
+
+    public Boolean getMoaSigned() {
+        return isMoaSigned;
+    }
+
+    public void setMoaSigned(Boolean moaSigned) {
+        isMoaSigned = moaSigned;
     }
 
     public Long getWardId() { return this.ward.getId(); }

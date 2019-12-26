@@ -10,7 +10,10 @@ public class DwccRequest extends BaseRequest{
     private Boolean isOwnedAndOperated;
     private Date operatingSince;
     private Integer areaInSqFt;
-    private Boolean isMouMoaSigned;
+    private Boolean isMouSigned;
+    private Boolean isMoaSigned;
+    private Date dateMouSigned;
+    private Date dateMouExpires;
 
     public String getName() {
         return name;
@@ -60,11 +63,35 @@ public class DwccRequest extends BaseRequest{
         this.areaInSqFt = areaInSqFt;
     }
 
-    public Boolean getMouMoaSigned() {
-        return isMouMoaSigned;
+    public Boolean getMouSigned() {
+        return isMouSigned;
     }
 
-    public void setMouMoaSigned(Boolean mouMoaSigned) {
-        isMouMoaSigned = mouMoaSigned;
+    public void setMouSigned(Boolean mouSigned) {
+        isMouSigned = mouSigned;
+    }
+
+    public Boolean getMoaSigned() {
+        return isMoaSigned;
+    }
+
+    public void setMoaSigned(Boolean moaSigned) {
+        isMoaSigned = moaSigned;
+    }
+
+    public Date getDateMouSigned() {
+        return dateMouSigned;
+    }
+
+    public void setDateMouSigned(Date dateMouSigned) {
+        this.dateMouSigned = dateMouSigned;
+    }
+
+    public Date getDateMouExpires() {
+        return dateMouExpires;
+    }
+
+    public void setDateMouExpires(Date dateMouExpires) {
+        this.dateMouExpires = dateMouExpires;
     }
 }

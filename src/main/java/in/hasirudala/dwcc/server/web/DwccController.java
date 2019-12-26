@@ -55,7 +55,10 @@ public class DwccController {
         newDwcc.setOwnedAndOperated(payload.getOwnedAndOperated());
         newDwcc.setOperatingSince(payload.getOperatingSince());
         newDwcc.setAreaInSqFt(payload.getAreaInSqFt());
-        newDwcc.setMouMoaSigned(payload.getMouMoaSigned());
+        newDwcc.setMouSigned(payload.getMouSigned());
+        newDwcc.setMoaSigned(payload.getMoaSigned());
+        newDwcc.setDateMouSigned(payload.getDateMouSigned());
+        newDwcc.setDateMouExpires(payload.getDateMouExpires());
         newDwcc.assignUuid();
         dwccRepository.save(newDwcc);
         return new ResponseEntity<>(newDwcc, HttpStatus.CREATED);
@@ -81,7 +84,10 @@ public class DwccController {
         existingDwcc.setOwnedAndOperated(payload.getOwnedAndOperated());
         existingDwcc.setOperatingSince(payload.getOperatingSince());
         existingDwcc.setAreaInSqFt(payload.getAreaInSqFt());
-        existingDwcc.setMouMoaSigned(payload.getMouMoaSigned());
+        existingDwcc.setMouSigned(payload.getMouSigned());
+        existingDwcc.setMoaSigned(payload.getMoaSigned());
+        existingDwcc.setDateMouSigned(payload.getDateMouSigned());
+        existingDwcc.setDateMouExpires(payload.getDateMouExpires());
         dwccRepository.save(existingDwcc);
         return new ResponseEntity<>(existingDwcc, HttpStatus.OK);
     }
