@@ -21,6 +21,9 @@ public class Dwcc extends BaseEntity {
     @NotNull
     private Ward ward;
 
+    @Column
+    private String address;
+
     @Column(name = "owner_or_agency_name")
     private String ownerOrAgencyName;
 
@@ -55,6 +58,14 @@ public class Dwcc extends BaseEntity {
 
     public void setWard(Ward ward) {
         this.ward = ward;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getOwnerOrAgencyName() {

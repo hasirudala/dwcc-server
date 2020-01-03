@@ -6,6 +6,7 @@ import java.sql.Date;
 public class DwccRequest extends BaseRequest{
     private String name;
     private Long wardId;
+    private String address;
     private String ownerOrAgencyName;
     private Boolean isOwnedAndOperated;
     private Date operatingSince;
@@ -29,6 +30,14 @@ public class DwccRequest extends BaseRequest{
 
     public void setWardId(Long wardId) {
         this.wardId = wardId;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getOwnerOrAgencyName() {

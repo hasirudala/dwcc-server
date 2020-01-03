@@ -51,6 +51,7 @@ public class DwccController {
         Dwcc newDwcc = new Dwcc();
         newDwcc.setName(payload.getName());
         newDwcc.setWard(wardRepository.getOne(payload.getWardId()));
+        newDwcc.setAddress(payload.getAddress());
         newDwcc.setOwnerOrAgencyName(payload.getOwnerOrAgencyName());
         newDwcc.setOwnedAndOperated(payload.getOwnedAndOperated());
         newDwcc.setOperatingSince(payload.getOperatingSince());
@@ -80,6 +81,7 @@ public class DwccController {
         }
         existingDwcc.setName(payload.getName());
         existingDwcc.setWard(wardRepository.getOne(payload.getWardId()));
+        existingDwcc.setAddress(payload.getAddress());
         existingDwcc.setOwnerOrAgencyName(payload.getOwnerOrAgencyName());
         existingDwcc.setOwnedAndOperated(payload.getOwnedAndOperated());
         existingDwcc.setOperatingSince(payload.getOperatingSince());

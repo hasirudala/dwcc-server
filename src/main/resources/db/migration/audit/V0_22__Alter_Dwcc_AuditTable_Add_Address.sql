@@ -1,0 +1,2 @@
+ALTER TABLE audit.dwccs_aud
+  ADD COLUMN address CHARACTER VARYING(255);
