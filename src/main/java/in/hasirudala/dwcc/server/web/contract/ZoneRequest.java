@@ -1,10 +1,9 @@
 package in.hasirudala.dwcc.server.web.contract;
 
 
-public class WardRequest extends BaseRequest {
+public class ZoneRequest extends BaseRequest {
     private String name;
     private Long regionId;
-    private Long[] zoneIds = {};
 
     public String getName() {
         return name;
@@ -20,13 +19,5 @@ public class WardRequest extends BaseRequest {
 
     public void setRegionId(Long regionId) {
         this.regionId = regionId;
-    }
-
-    public Long[] getZoneIds() {
-        return zoneIds;
-    }
-
-    public void setZoneIds(Long[] zoneIds) {
-        this.zoneIds = zoneIds;
     }
 }

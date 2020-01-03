@@ -12,6 +12,7 @@ public class RepositoryConfiguration implements RepositoryRestConfigurer {
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.exposeIdsFor(Region.class);
         config.exposeIdsFor(Ward.class);
+        config.exposeIdsFor(Zone.class);
         config.exposeIdsFor(Dwcc.class);
         config.exposeIdsFor(WasteType.class);
         config.exposeIdsFor(WasteTag.class);
