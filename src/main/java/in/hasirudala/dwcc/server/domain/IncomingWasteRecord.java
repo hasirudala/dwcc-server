@@ -23,11 +23,13 @@ public class IncomingWasteRecord extends BaseEntity {
     @NotNull
     private Dwcc dwcc;
 
+    /*
     @Column
     private Boolean errorsIgnored = false;
 
     @Column
     private Boolean approvedByAdmin = false;
+    */
 
     @Column(name = "notes")
     private String note;
@@ -64,6 +66,7 @@ public class IncomingWasteRecord extends BaseEntity {
         return this.dwcc.getId();
     }
 
+    /*
     public Boolean getErrorsIgnored() {
         return errorsIgnored;
     }
@@ -79,6 +82,7 @@ public class IncomingWasteRecord extends BaseEntity {
     public void setApprovedByAdmin(Boolean approvedByAdmin) {
         this.approvedByAdmin = approvedByAdmin;
     }
+    */
 
     public String getNote() {
         return note;

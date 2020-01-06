@@ -37,6 +37,8 @@ public class IncomingDtdWasteEntryService extends AbstractWasteEntryService<Inco
         VehicleType vt = vehicleTypeRepository.getOne(payload.getVehicleTypeId());
         dtdEntry.setVehicleType(vt);
         dtdEntry.setQuantity(payload.getQuantity());
+        dtdEntry.setRejectQty(payload.getRejectQty());
+        dtdEntry.setSanitaryQty(payload.getSanitaryQty());
     }
 
     public void update(IncomingWasteRecord record, List<IncomingDtdWasteRequest> dtdPayloads) {

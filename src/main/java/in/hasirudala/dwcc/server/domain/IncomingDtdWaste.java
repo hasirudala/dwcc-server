@@ -17,9 +17,14 @@ public class IncomingDtdWaste extends BaseEntity {
     @JoinColumn(name = "vehicle_type_id", nullable = false)
     private VehicleType vehicleType;
 
-
     @Column(nullable = false)
     private Double quantity;
+
+    @Column(nullable = false)
+    private Double rejectQty;
+
+    @Column(nullable = false)
+    private Double sanitaryQty;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
@@ -52,6 +57,22 @@ public class IncomingDtdWaste extends BaseEntity {
 
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
+    }
+
+    public Double getRejectQty() {
+        return rejectQty;
+    }
+
+    public void setRejectQty(Double rejectQty) {
+        this.rejectQty = rejectQty;
+    }
+
+    public Double getSanitaryQty() {
+        return sanitaryQty;
+    }
+
+    public void setSanitaryQty(Double sanitaryQty) {
+        this.sanitaryQty = sanitaryQty;
     }
 
     public IncomingWasteRecord getRecord() {

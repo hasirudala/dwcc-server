@@ -4,6 +4,8 @@ public class IncomingDtdWasteRequest extends BaseRequest {
     private String vehicleNumber;
     private Long vehicleTypeId;
     private Double quantity;
+    private Double rejectQty;
+    private Double sanitaryQty;
 
     public String getVehicleNumber() {
         return vehicleNumber;
@@ -27,5 +29,21 @@ public class IncomingDtdWasteRequest extends BaseRequest {
 
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
+    }
+
+    public Double getRejectQty() {
+        return rejectQty;
+    }
+
+    public void setRejectQty(Double rejectQty) {
+        this.rejectQty = rejectQty;
+    }
+
+    public Double getSanitaryQty() {
+        return sanitaryQty;
+    }
+
+    public void setSanitaryQty(Double sanitaryQty) {
+        this.sanitaryQty = sanitaryQty;
     }
 }
