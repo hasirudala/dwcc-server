@@ -3,6 +3,8 @@ package in.hasirudala.dwcc.server.web;
 import in.hasirudala.dwcc.server.domain.WasteBuyer;
 import in.hasirudala.dwcc.server.repository.RegionRepository;
 import in.hasirudala.dwcc.server.repository.WasteBuyerRepository;
+import in.hasirudala.dwcc.server.repository.WasteItemRepository;
+import in.hasirudala.dwcc.server.repository.ZoneRepository;
 import in.hasirudala.dwcc.server.web.contract.WasteBuyerRequest;
 import in.hasirudala.dwcc.server.web.messages.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -21,12 +24,18 @@ import java.util.NoSuchElementException;
 public class WasteBuyerController {
     private WasteBuyerRepository wasteBuyerRepository;
     private RegionRepository regionRepository;
+    private ZoneRepository zoneRepository;
+    private WasteItemRepository itemRepository;
 
     @Autowired
     public WasteBuyerController(WasteBuyerRepository wasteBuyerRepository,
-                                RegionRepository regionRepository) {
+                                RegionRepository regionRepository,
+                                ZoneRepository zoneRepository,
+                                WasteItemRepository itemRepository) {
         this.wasteBuyerRepository = wasteBuyerRepository;
         this.regionRepository = regionRepository;
+        this.zoneRepository = zoneRepository;
+        this.itemRepository = itemRepository;
     }
 
     @GetMapping
@@ -55,6 +64,12 @@ public class WasteBuyerController {
         newWasteBuyer.assignUuid();
         newWasteBuyer.setName(payload.getName());
         newWasteBuyer.setRegion(regionRepository.getOne(payload.getRegionId()));
+        if (payload.getZoneId() != null)
+            newWasteBuyer.setZone(zoneRepository.getOne(payload.getZoneId()));
+        newWasteBuyer.setAddress(payload.getAddress());
+        newWasteBuyer.setKspcbAuthorized(payload.getKspcbAuthorized());
+        newWasteBuyer.setAcceptedItems(new HashSet<>(
+                itemRepository.findByIdIn(payload.getAcceptedItemIds().toArray(new Long[]{}))));
         wasteBuyerRepository.save(newWasteBuyer);
         return new ResponseEntity<>(newWasteBuyer, HttpStatus.CREATED);
     }
@@ -62,7 +77,7 @@ public class WasteBuyerController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<WasteBuyer> update(@PathVariable("id") Long id, @RequestBody WasteBuyer payload) {
+    public ResponseEntity<WasteBuyer> update(@PathVariable("id") Long id, @RequestBody WasteBuyerRequest payload) {
         WasteBuyer existingWasteBuyer;
         try {
             existingWasteBuyer = wasteBuyerRepository
@@ -74,6 +89,12 @@ public class WasteBuyerController {
         }
         existingWasteBuyer.setName(payload.getName());
         existingWasteBuyer.setRegion(regionRepository.getOne(payload.getRegionId()));
+        if (payload.getZoneId() != null)
+            existingWasteBuyer.setZone(zoneRepository.getOne(payload.getZoneId()));
+        existingWasteBuyer.setAddress(payload.getAddress());
+        existingWasteBuyer.setKspcbAuthorized(payload.getKspcbAuthorized());
+        existingWasteBuyer.setAcceptedItems(new HashSet<>(
+                itemRepository.findByIdIn(payload.getAcceptedItemIds().toArray(new Long[]{}))));
         wasteBuyerRepository.save(existingWasteBuyer);
         return new ResponseEntity<>(existingWasteBuyer, HttpStatus.OK);
     }
