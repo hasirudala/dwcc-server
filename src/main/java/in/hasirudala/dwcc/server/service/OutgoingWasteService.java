@@ -31,17 +31,24 @@ public class OutgoingWasteService {
     public OutgoingWasteRecord createFromRequest(OutgoingWasteRequest request) {
         OutgoingWasteRecord record = new OutgoingWasteRecord();
         record.assignUuid();
-        record.setDate(request.getDate());
+        record.setFromDate(request.getFromDate());
+        record.setToDate(request.getToDate());
+        record.setTotalQuantity(request.getTotalQuantity());
+        record.setSanitaryWasteQuantity(request.getSanitaryWasteQuantity());
         record.setDwcc(dwccRepository.getOne(request.getDwccId()));
-        outgoingEntryService.createAndAdd(record, request.getWasteItems());
+        outgoingEntryService.createAndAdd(record, request.getEntries());
         record.setNote(request.getNote());
         recordRepository.save(record);
         return record;
     }
 
     public OutgoingWasteRecord updateFromRequest(OutgoingWasteRecord record, OutgoingWasteRequest request) {
+        record.setFromDate(request.getFromDate());
+        record.setToDate(request.getToDate());
+        record.setTotalQuantity(request.getTotalQuantity());
+        record.setSanitaryWasteQuantity(request.getSanitaryWasteQuantity());
         record.setNote(request.getNote());
-        outgoingEntryService.update(record, request.getWasteItems());
+        outgoingEntryService.update(record, request.getEntries());
         recordRepository.save(record);
         return record;
     }

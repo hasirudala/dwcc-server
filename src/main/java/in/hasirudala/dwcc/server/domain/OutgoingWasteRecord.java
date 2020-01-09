@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Audited
 @Entity
@@ -16,7 +17,24 @@ import java.util.Set;
 public class OutgoingWasteRecord extends BaseEntity {
     @Column(nullable = false)
     @NotNull
-    private Date date;
+    private Date fromDate;
+
+    @Column(nullable = false)
+    @NotNull
+    private Date toDate;
+
+    @Column
+    private Double totalQuantity;
+
+    @Column
+    private Double sanitaryWasteQuantity;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<OutgoingWasteEntry> entries = new HashSet<>();
+
+    @Column(name = "notes")
+    private String note;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,19 +42,36 @@ public class OutgoingWasteRecord extends BaseEntity {
     @NotNull
     private Dwcc dwcc;
 
-    @Column(name = "notes")
-    private String note;
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<OutgoingWasteItem> wasteItems = new HashSet<>();
-
-    public Date getDate() {
-        return date;
+    public Date getFromDate() {
+        return fromDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
+    public Double getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(Double totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public Double getSanitaryWasteQuantity() {
+        return sanitaryWasteQuantity;
+    }
+
+    public void setSanitaryWasteQuantity(Double sanitaryWasteQuantity) {
+        this.sanitaryWasteQuantity = sanitaryWasteQuantity;
     }
 
     public Dwcc getDwcc() {
@@ -59,16 +94,20 @@ public class OutgoingWasteRecord extends BaseEntity {
         this.note = note;
     }
 
-    public Set<OutgoingWasteItem> getWasteItems() {
-        return wasteItems;
+    public Set<OutgoingWasteEntry> getEntries() {
+        return entries;
     }
 
-    public void setWasteItems(Set<OutgoingWasteItem> wasteItems) {
-        this.wasteItems = wasteItems;
+    public void setEntries(Set<OutgoingWasteEntry> entries) {
+        this.entries = entries;
     }
 
-    public void addWasteItem(OutgoingWasteItem wasteItem) {
-        this.wasteItems.add(wasteItem);
-        wasteItem.setRecord(this);
+    public void addEntry(OutgoingWasteEntry entry) {
+        this.entries.add(entry);
+        entry.setRecord(this);
+    }
+
+    public Set<Long> getEntryIds() {
+        return entries.stream().map(BaseEntity::getId).collect(Collectors.toSet());
     }
 }

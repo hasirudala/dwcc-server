@@ -24,6 +24,6 @@ public class RepositoryConfiguration implements RepositoryRestConfigurer {
         config.exposeIdsFor(IncomingMixedWaste.class);
         config.exposeIdsFor(WasteBuyer.class);
         config.exposeIdsFor(OutgoingWasteRecord.class);
-        config.exposeIdsFor(OutgoingWasteItem.class);
+        config.exposeIdsFor(OutgoingWasteEntry.class);
     }
 }

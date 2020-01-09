@@ -16,10 +16,11 @@ import java.sql.Date;
 @Repository
 @RepositoryRestResource(collectionResourceRel = "outgoingWaste", path = "outgoingWaste")
 public interface OutgoingWasteRecordRepository extends JpaRepository<OutgoingWasteRecord, Long> {
-    @Query(value =
-            "SELECT * FROM outgoing_waste_records " +
-            "WHERE extract (MONTH FROM date) = :m AND extract (YEAR FROM date) = :y AND dwcc_id = :dwccId",
-            nativeQuery = true)
+    @Query(value = "SELECT * FROM outgoing_waste_records " +
+                           "WHERE extract (MONTH FROM to_date) = :m " +
+                           "AND extract (YEAR FROM to_date) = :y " +
+                           "AND dwcc_id = :dwccId " +
+                           "ORDER BY from_date", nativeQuery = true)
     Page<OutgoingWasteRecord> getDwccRecordsByMonthYear(
             @Param("m") Integer m,
             @Param("y") Integer y,
@@ -27,7 +28,10 @@ public interface OutgoingWasteRecordRepository extends JpaRepository<OutgoingWas
             Pageable pageable
     );
 
-    @RestResource(path = "existsForDate", rel = "existsForDate")
-    boolean existsByDateAndDwcc_Id(@Param("date") Date date, @Param("dwccId") Long dwccId);
-
+    @Query(value = "SELECT EXISTS(SELECT 1 FROM outgoing_waste_records " +
+                           "WHERE :from BETWEEN from_date AND to_date " +
+                           "OR :to BETWEEN from_date AND to_date " +
+                           "OR ((from_date BETWEEN :from AND :to) AND (to_date BETWEEN :from AND :to)) " +
+                           "AND dwcc_id = :dwccId)", nativeQuery = true)
+    boolean dateRangeExists(@Param("from") Date from, @Param("to") Date to, @Param("dwccId") Long dwccId);
 }

@@ -4,17 +4,44 @@ import java.sql.Date;
 import java.util.List;
 
 public class OutgoingWasteRequest extends BaseRequest {
-    private Date date;
+    private Date fromDate;
+    private Date toDate;
+    private Double totalQuantity;
+    private Double sanitaryWasteQuantity;
     private Long dwccId;
-    private List<OutgoingWasteItemRequest> wasteItems;
+    private List<OutgoingWasteEntryRequest> entries;
     private String note;
 
-    public Date getDate() {
-        return date;
+    public Date getFromDate() {
+        return fromDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
+    public Double getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(Double totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public Double getSanitaryWasteQuantity() {
+        return sanitaryWasteQuantity;
+    }
+
+    public void setSanitaryWasteQuantity(Double sanitaryWasteQuantity) {
+        this.sanitaryWasteQuantity = sanitaryWasteQuantity;
     }
 
     public Long getDwccId() {
@@ -25,12 +52,12 @@ public class OutgoingWasteRequest extends BaseRequest {
         this.dwccId = dwccId;
     }
 
-    public List<OutgoingWasteItemRequest> getWasteItems() {
-        return wasteItems;
+    public List<OutgoingWasteEntryRequest> getEntries() {
+        return entries;
     }
 
-    public void setWasteItems(List<OutgoingWasteItemRequest> wasteItems) {
-        this.wasteItems = wasteItems;
+    public void setEntries(List<OutgoingWasteEntryRequest> entries) {
+        this.entries = entries;
     }
 
     public String getNote() {
