@@ -32,10 +32,7 @@ public class ExpenseItem extends BaseEntity {
     private Set<ExpenseTag> tags = new HashSet<>();
 
     @Column(name = "ask_num_units")
-    private Boolean askNumberOfUnits;
-
-    @Column
-    private String unitLabel;
+    private Boolean askNumberOfUnits = false;
 
     public String getName() {
         return name;
@@ -77,13 +74,5 @@ public class ExpenseItem extends BaseEntity {
 
     public void setAskNumberOfUnits(Boolean askNumberOfUnits) {
         this.askNumberOfUnits = askNumberOfUnits;
-    }
-
-    public String getUnitLabel() {
-        return unitLabel;
-    }
-
-    public void setUnitLabel(String unitLabel) {
-        this.unitLabel = unitLabel;
     }
 }

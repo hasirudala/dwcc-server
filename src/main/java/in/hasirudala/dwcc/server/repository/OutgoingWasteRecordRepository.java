@@ -29,9 +29,10 @@ public interface OutgoingWasteRecordRepository extends JpaRepository<OutgoingWas
     );
 
     @Query(value = "SELECT EXISTS(SELECT 1 FROM outgoing_waste_records " +
-                           "WHERE :from BETWEEN from_date AND to_date " +
-                           "OR :to BETWEEN from_date AND to_date " +
-                           "OR ((from_date BETWEEN :from AND :to) AND (to_date BETWEEN :from AND :to)) " +
-                           "AND dwcc_id = :dwccId)", nativeQuery = true)
+                           "WHERE dwcc_id = :dwccId " +
+                           "AND ((:from BETWEEN from_date AND to_date) " +
+                           "  OR (:to BETWEEN from_date AND to_date) " +
+                           "  OR ((from_date BETWEEN :from AND :to) AND (to_date BETWEEN :from AND :to))))",
+                           nativeQuery = true)
     boolean dateRangeExists(@Param("from") Date from, @Param("to") Date to, @Param("dwccId") Long dwccId);
 }

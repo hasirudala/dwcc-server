@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class IncomingItemizedWasteEntryService extends AbstractWasteEntryService<IncomingWasteItemRequest, IncomingWasteItem, IncomingWasteRecord> {
+public class IncomingItemizedWasteEntryService extends AbstractEntryService<IncomingWasteItemRequest, IncomingWasteItem, IncomingWasteRecord> {
     private WasteItemRepository wasteItemRepository;
 
     @Autowired

@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @Service
-public class IncomingMixedWasteEntryService extends AbstractWasteEntryService<IncomingMixedWasteRequest, IncomingMixedWaste, IncomingWasteRecord> {
+public class IncomingMixedWasteEntryService extends AbstractEntryService<IncomingMixedWasteRequest, IncomingMixedWaste, IncomingWasteRecord> {
     private WasteItemRepository wasteItemRepository;
 
     @Autowired

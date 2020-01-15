@@ -28,5 +28,8 @@ public class RepositoryConfiguration implements RepositoryRestConfigurer {
         config.exposeIdsFor(ExpenseType.class);
         config.exposeIdsFor(ExpenseTag.class);
         config.exposeIdsFor(ExpenseItem.class);
+        config.exposeIdsFor(ExpenseRecord.class);
+        config.exposeIdsFor(ExpenseEntry.class);
+        config.exposeIdsFor(ExpensePurchaseEntry.class);
     }
 }

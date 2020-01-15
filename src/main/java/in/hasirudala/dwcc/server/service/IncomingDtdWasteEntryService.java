@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class IncomingDtdWasteEntryService extends AbstractWasteEntryService<IncomingDtdWasteRequest, IncomingDtdWaste, IncomingWasteRecord> {
+public class IncomingDtdWasteEntryService extends AbstractEntryService<IncomingDtdWasteRequest, IncomingDtdWaste, IncomingWasteRecord> {
     private VehicleTypeRepository vehicleTypeRepository;
 
     @Autowired

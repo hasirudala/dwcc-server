@@ -8,9 +8,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
-abstract class AbstractWasteEntryService<T1 extends BaseRequest,
+abstract class AbstractEntryService<T1 extends BaseRequest,
                                                 T2 extends BaseEntity,
-                                                T3 extends BaseEntity> implements WasteEntryService<T1, T2, T3> {
+                                                T3 extends BaseEntity> implements EntryService<T1, T2, T3> {
 
     void removeDeletedEntries(Set<T2> existingEntries, List<T1> entryPayloads) {
         List<Long> idsInEntryPayloads = entryPayloads

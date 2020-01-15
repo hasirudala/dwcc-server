@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @Service
-public class OutgoingWasteEntryService extends AbstractWasteEntryService<OutgoingWasteEntryRequest, OutgoingWasteEntry, OutgoingWasteRecord> {
+public class OutgoingWasteEntryService extends AbstractEntryService<OutgoingWasteEntryRequest, OutgoingWasteEntry, OutgoingWasteRecord> {
     private WasteItemRepository wasteItemRepository;
     private WasteBuyerRepository buyerRepository;
 

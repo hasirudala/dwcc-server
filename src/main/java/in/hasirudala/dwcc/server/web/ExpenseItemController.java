@@ -71,7 +71,6 @@ public class ExpenseItemController {
 
         newItem.setTags(getTagsFilteredByType(payload.getTagIds(), type));
         newItem.setAskNumberOfUnits(payload.getAskNumberOfUnits());
-        newItem.setUnitLabel(payload.getUnitLabel());
 
         expenseItemRepository.save(newItem);
         return new ResponseEntity<>(newItem, HttpStatus.CREATED);
@@ -102,7 +101,6 @@ public class ExpenseItemController {
         }
         existingItem.setName(payload.getName());
         existingItem.setAskNumberOfUnits(payload.getAskNumberOfUnits());
-        existingItem.setUnitLabel(payload.getUnitLabel());
 
         ExpenseType type = null;
         if (payload.getTypeId() == null)

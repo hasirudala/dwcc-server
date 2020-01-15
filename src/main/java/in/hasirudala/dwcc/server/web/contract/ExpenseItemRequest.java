@@ -7,8 +7,7 @@ public class ExpenseItemRequest extends BaseRequest {
     private String name;
     private Long typeId = null;
     private Set<Long> tagIds = new HashSet<>();
-    private Boolean askNumberOfUnits;
-    private String unitLabel;
+    private Boolean askNumberOfUnits = false;
 
     public String getName() {
         return name;
@@ -40,13 +39,5 @@ public class ExpenseItemRequest extends BaseRequest {
 
     public void setAskNumberOfUnits(Boolean askNumberOfUnits) {
         this.askNumberOfUnits = askNumberOfUnits;
-    }
-
-    public String getUnitLabel() {
-        return unitLabel;
-    }
-
-    public void setUnitLabel(String unitLabel) {
-        this.unitLabel = unitLabel;
     }
 }
