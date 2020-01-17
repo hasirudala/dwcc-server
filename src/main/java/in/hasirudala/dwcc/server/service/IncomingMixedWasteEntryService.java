@@ -35,6 +35,7 @@ public class IncomingMixedWasteEntryService extends AbstractEntryService<Incomin
     public void setAttributes(IncomingMixedWaste mixedWasteItem, IncomingMixedWasteRequest payload) {
         mixedWasteItem.setItems(new HashSet<>(wasteItemRepository.findAllById(payload.getItemIds())));
         mixedWasteItem.setQuantity(payload.getQuantity());
+        mixedWasteItem.setRejectQty(payload.getRejectQty());
         mixedWasteItem.setRate(payload.getRate());
     }
 

@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "incoming_waste_mixed")
 public class IncomingMixedWaste extends BaseEntity {
-    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonIgnore
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
@@ -26,6 +25,9 @@ public class IncomingMixedWaste extends BaseEntity {
 
     @Column(nullable = false)
     private Double quantity;
+
+    @Column(nullable = false)
+    private Double rejectQty;
 
     @Column
     private Double rate;
@@ -53,6 +55,14 @@ public class IncomingMixedWaste extends BaseEntity {
 
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
+    }
+
+    public Double getRejectQty() {
+        return rejectQty;
+    }
+
+    public void setRejectQty(Double rejectQty) {
+        this.rejectQty = rejectQty;
     }
 
     public Double getRate() {

@@ -5,6 +5,7 @@ import java.util.Set;
 public class IncomingMixedWasteRequest extends BaseRequest {
     private Set<Long> itemIds;
     private Double quantity;
+    private Double rejectQty;
     private Double rate;
 
     public Set<Long> getItemIds() {
@@ -21,6 +22,14 @@ public class IncomingMixedWasteRequest extends BaseRequest {
 
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
+    }
+
+    public Double getRejectQty() {
+        return rejectQty;
+    }
+
+    public void setRejectQty(Double rejectQty) {
+        this.rejectQty = rejectQty;
     }
 
     public Double getRate() {
