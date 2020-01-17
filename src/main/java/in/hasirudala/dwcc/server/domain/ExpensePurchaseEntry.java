@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Audited
 @Entity
@@ -17,9 +20,14 @@ public class ExpensePurchaseEntry extends BaseEntity {
     private ExpenseRecord record;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "waste_item_id")
-    private WasteItem item;
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "expense_purchase_entry_items",
+            joinColumns = {@JoinColumn(name = "purchase_entry_id")},
+            inverseJoinColumns = {@JoinColumn(name = "waste_item_id")})
+    private Set<WasteItem> items = new HashSet<>();
 
     @Column
     private Double amount;
@@ -36,17 +44,17 @@ public class ExpensePurchaseEntry extends BaseEntity {
         return this.record.getId();
     }
 
-    public WasteItem getItem() {
-        return item;
+    public Set<WasteItem> getItems() {
+        return items;
     }
 
-    public void setItem(WasteItem item) {
-        this.item = item;
+    public void setItems(Set<WasteItem> items) {
+        this.items = items;
     }
 
-    @JsonProperty("wasteItemId")
-    public Long getItemId() {
-        return this.item.getId();
+    @JsonProperty("wasteItemIds")
+    public Set<Long> getItemIds() {
+        return items.stream().map(WasteItem::getId).collect(Collectors.toSet());
     }
 
     public Double getAmount() {

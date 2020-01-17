@@ -7,6 +7,7 @@ import in.hasirudala.dwcc.server.web.contract.ExpensePurchaseEntryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -32,7 +33,7 @@ public class ExpensePurchaseEntryService extends AbstractEntryService<ExpensePur
     }
 
     public void setAttributes(ExpensePurchaseEntry entry, ExpensePurchaseEntryRequest payload) {
-        entry.setItem(wasteItemRepository.getOne(payload.getWasteItemId()));
+        entry.setItems(new HashSet<>(wasteItemRepository.findAllById(payload.getWasteItemIds())));
         entry.setAmount(payload.getAmount());
     }
 

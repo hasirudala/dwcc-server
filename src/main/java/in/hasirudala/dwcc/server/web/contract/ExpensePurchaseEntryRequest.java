@@ -1,15 +1,17 @@
 package in.hasirudala.dwcc.server.web.contract;
 
+import java.util.Set;
+
 public class ExpensePurchaseEntryRequest extends BaseRequest {
-    private Long wasteItemId;
+    private Set<Long> wasteItemIds;
     private Double amount;
 
-    public Long getWasteItemId() {
-        return wasteItemId;
+    public Set<Long> getWasteItemIds() {
+        return wasteItemIds;
     }
 
-    public void setWasteItemId(Long wasteItemId) {
-        this.wasteItemId = wasteItemId;
+    public void setWasteItemIds(Set<Long> wasteItemIds) {
+        this.wasteItemIds = wasteItemIds;
     }
 
     public Double getAmount() {
