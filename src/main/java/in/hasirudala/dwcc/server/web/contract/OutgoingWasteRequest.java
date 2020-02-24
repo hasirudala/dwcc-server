@@ -7,7 +7,8 @@ public class OutgoingWasteRequest extends BaseRequest {
     private Date fromDate;
     private Date toDate;
     private Double totalQuantity;
-    private Double sanitaryWasteQuantity;
+    private Double rejectQuantity;
+    private Double sanitaryQuantity;
     private Long dwccId;
     private List<OutgoingWasteEntryRequest> entries;
     private String note;
@@ -36,12 +37,20 @@ public class OutgoingWasteRequest extends BaseRequest {
         this.totalQuantity = totalQuantity;
     }
 
-    public Double getSanitaryWasteQuantity() {
-        return sanitaryWasteQuantity;
+    public Double getRejectQuantity() {
+        return rejectQuantity;
     }
 
-    public void setSanitaryWasteQuantity(Double sanitaryWasteQuantity) {
-        this.sanitaryWasteQuantity = sanitaryWasteQuantity;
+    public void setRejectQuantity(Double rejectQuantity) {
+        this.rejectQuantity = rejectQuantity;
+    }
+
+    public Double getSanitaryQuantity() {
+        return sanitaryQuantity;
+    }
+
+    public void setSanitaryQuantity(Double sanitaryWasteQuantity) {
+        this.sanitaryQuantity = sanitaryWasteQuantity;
     }
 
     public Long getDwccId() {

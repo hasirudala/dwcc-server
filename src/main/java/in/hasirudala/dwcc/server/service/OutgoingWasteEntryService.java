@@ -39,7 +39,6 @@ public class OutgoingWasteEntryService extends AbstractEntryService<OutgoingWast
     public void setAttributes(OutgoingWasteEntry entry, OutgoingWasteEntryRequest payload) {
         entry.setItems(new HashSet<>(wasteItemRepository.findAllById(payload.getItemIds())));
         entry.setQuantity(payload.getQuantity());
-        entry.setRejectQuantity(payload.getRejectQuantity());
         entry.setStockInHand(payload.getStockInHand());
         entry.setRate(payload.getRate());
         if (payload.getBuyerId() == null)

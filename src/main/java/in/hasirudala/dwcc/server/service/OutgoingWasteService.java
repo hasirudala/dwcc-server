@@ -34,7 +34,8 @@ public class OutgoingWasteService {
         record.setFromDate(request.getFromDate());
         record.setToDate(request.getToDate());
         record.setTotalQuantity(request.getTotalQuantity());
-        record.setSanitaryWasteQuantity(request.getSanitaryWasteQuantity());
+        record.setRejectQuantity(request.getRejectQuantity());
+        record.setSanitaryQuantity(request.getSanitaryQuantity());
         record.setDwcc(dwccRepository.getOne(request.getDwccId()));
         outgoingEntryService.createAndAdd(record, request.getEntries());
         record.setNote(request.getNote());
@@ -46,7 +47,8 @@ public class OutgoingWasteService {
         record.setFromDate(request.getFromDate());
         record.setToDate(request.getToDate());
         record.setTotalQuantity(request.getTotalQuantity());
-        record.setSanitaryWasteQuantity(request.getSanitaryWasteQuantity());
+        record.setRejectQuantity(request.getRejectQuantity());
+        record.setSanitaryQuantity(request.getSanitaryQuantity());
         record.setNote(request.getNote());
         outgoingEntryService.update(record, request.getEntries());
         recordRepository.save(record);

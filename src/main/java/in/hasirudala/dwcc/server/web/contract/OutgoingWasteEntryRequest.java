@@ -5,7 +5,6 @@ import java.util.Set;
 public class OutgoingWasteEntryRequest extends BaseRequest {
     private Set<Long> itemIds;
     private Double quantity;
-    private Double rejectQuantity;
     private Double stockInHand;
     private Double rate;
     private Long buyerId = null;
@@ -24,14 +23,6 @@ public class OutgoingWasteEntryRequest extends BaseRequest {
 
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
-    }
-
-    public Double getRejectQuantity() {
-        return rejectQuantity;
-    }
-
-    public void setRejectQuantity(Double rejectQuantity) {
-        this.rejectQuantity = rejectQuantity;
     }
 
     public Double getStockInHand() {

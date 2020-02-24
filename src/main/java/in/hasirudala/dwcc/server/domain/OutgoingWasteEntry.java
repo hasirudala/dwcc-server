@@ -33,9 +33,6 @@ public class OutgoingWasteEntry extends BaseEntity {
     private Double quantity;
 
     @Column
-    private Double rejectQuantity;
-
-    @Column
     private Double stockInHand;
 
     @Column
@@ -76,14 +73,6 @@ public class OutgoingWasteEntry extends BaseEntity {
 
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
-    }
-
-    public Double getRejectQuantity() {
-        return rejectQuantity;
-    }
-
-    public void setRejectQuantity(Double rejectQuantity) {
-        this.rejectQuantity = rejectQuantity;
     }
 
     public Double getStockInHand() {

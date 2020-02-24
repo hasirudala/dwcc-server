@@ -26,8 +26,14 @@ public class OutgoingWasteRecord extends BaseEntity {
     @Column
     private Double totalQuantity;
 
+    /*
+     *   totalQuantity expected to be >= (reject + sanitary)
+     */
     @Column
-    private Double sanitaryWasteQuantity;
+    private Double rejectQuantity;
+
+    @Column
+    private Double sanitaryQuantity;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -66,12 +72,20 @@ public class OutgoingWasteRecord extends BaseEntity {
         this.totalQuantity = totalQuantity;
     }
 
-    public Double getSanitaryWasteQuantity() {
-        return sanitaryWasteQuantity;
+    public Double getRejectQuantity() {
+        return rejectQuantity;
     }
 
-    public void setSanitaryWasteQuantity(Double sanitaryWasteQuantity) {
-        this.sanitaryWasteQuantity = sanitaryWasteQuantity;
+    public void setRejectQuantity(Double rejectQuantity) {
+        this.rejectQuantity = rejectQuantity;
+    }
+
+    public Double getSanitaryQuantity() {
+        return sanitaryQuantity;
+    }
+
+    public void setSanitaryQuantity(Double sanitaryWasteQuantity) {
+        this.sanitaryQuantity = sanitaryWasteQuantity;
     }
 
     public Dwcc getDwcc() {
