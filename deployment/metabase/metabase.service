@@ -1,0 +1,24 @@
+[Unit]
+Description=DWCC Metabase Server
+
+Environment=WDIR=/home/app/metabase
+ConditionPathExists=${WDIR}
+
+[Service]
+User=www-data
+
+WorkingDirectory=/home/app/metabase
+EnvironmentFile=/home/app/metabase/.env.local
+
+ExecStart=/usr/bin/java -jar ${WDIR}/metabase.jar
+
+PermissionsStartOnly=true
+ExecStartPre=/bin/chown -R www-data ${WDIR}
+
+SuccessExitStatus=143
+TimeoutStopSec=10
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
