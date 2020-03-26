@@ -23,28 +23,16 @@ public class IncomingWasteRecord extends BaseEntity {
     @NotNull
     private Dwcc dwcc;
 
-    /*
-    @Column
-    private Boolean errorsIgnored = false;
-
-    @Column
-    private Boolean approvedByAdmin = false;
-    */
-
     @Column(name = "notes")
     private String note;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<IncomingDtdWaste> dtdCollection = new HashSet<>();
+    private Set<IncomingDtdWasteEntry> dtdCollection = new HashSet<>();
 
     @JsonManagedReference
     @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<IncomingWasteItem> wasteItems = new HashSet<>();
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<IncomingMixedWaste> mixedWaste = new HashSet<>();
+    private Set<IncomingMixedWasteEntry> mixedWaste = new HashSet<>();
 
     public Date getDate() {
         return date;
@@ -66,24 +54,6 @@ public class IncomingWasteRecord extends BaseEntity {
         return this.dwcc.getId();
     }
 
-    /*
-    public Boolean getErrorsIgnored() {
-        return errorsIgnored;
-    }
-
-    public void setErrorsIgnored(Boolean errorsIgnored) {
-        this.errorsIgnored = errorsIgnored;
-    }
-
-    public Boolean getApprovedByAdmin() {
-        return approvedByAdmin;
-    }
-
-    public void setApprovedByAdmin(Boolean approvedByAdmin) {
-        this.approvedByAdmin = approvedByAdmin;
-    }
-    */
-
     public String getNote() {
         return note;
     }
@@ -92,41 +62,28 @@ public class IncomingWasteRecord extends BaseEntity {
         this.note = note;
     }
 
-    public Set<IncomingDtdWaste> getDtdCollection() {
+    public Set<IncomingDtdWasteEntry> getDtdCollection() {
         return dtdCollection;
     }
 
-    public void setDtdCollection(Set<IncomingDtdWaste> dtdCollection) {
+    public void setDtdCollection(Set<IncomingDtdWasteEntry> dtdCollection) {
         this.dtdCollection = dtdCollection;
     }
 
-    public void addDtdWaste(IncomingDtdWaste dtdWaste) {
+    public void addDtdWaste(IncomingDtdWasteEntry dtdWaste) {
         this.dtdCollection.add(dtdWaste);
         dtdWaste.setRecord(this);
     }
 
-    public Set<IncomingWasteItem> getWasteItems() {
-        return wasteItems;
-    }
-
-    public void setWasteItems(Set<IncomingWasteItem> wasteItems) {
-        this.wasteItems = wasteItems;
-    }
-
-    public void addWasteItem(IncomingWasteItem wasteItem) {
-        this.wasteItems.add(wasteItem);
-        wasteItem.setRecord(this);
-    }
-
-    public Set<IncomingMixedWaste> getMixedWaste() {
+    public Set<IncomingMixedWasteEntry> getMixedWaste() {
         return mixedWaste;
     }
 
-    public void setMixedWaste(Set<IncomingMixedWaste> mixedWaste) {
+    public void setMixedWaste(Set<IncomingMixedWasteEntry> mixedWaste) {
         this.mixedWaste = mixedWaste;
     }
 
-    public void addMixedWaste(IncomingMixedWaste mixedWasteItem) {
+    public void addMixedWaste(IncomingMixedWasteEntry mixedWasteItem) {
         this.mixedWaste.add(mixedWasteItem);
         mixedWasteItem.setRecord(this);
     }

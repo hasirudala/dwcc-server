@@ -11,25 +11,25 @@ import java.util.stream.Collectors;
 
 @Audited
 @Entity
-@Table(name = "incoming_waste_mixed")
-public class IncomingMixedWaste extends BaseEntity {
+@Table(name = "incoming_waste_entries_mixed")
+public class IncomingMixedWasteEntry extends BaseEntity {
     @JsonIgnore
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JoinTable(name = "incoming_waste_mixed_items",
-            joinColumns = {@JoinColumn(name = "mixed_waste_id")},
+    @JoinTable(name = "incoming_waste_entries_mixed_items",
+            joinColumns = {@JoinColumn(name = "entry_id")},
             inverseJoinColumns = {@JoinColumn(name = "item_id")})
     private Set<WasteItem> items = new HashSet<>();
 
-    @Column(nullable = false)
+    @Column(name = "total_kgs", nullable = false)
     private Double quantity;
 
-    @Column(nullable = false)
+    @Column(name = "reject_kgs", nullable = false)
     private Double rejectQty;
 
-    @Column
+    @Column(name = "rate_per_kg")
     private Double rate;
 
     @JsonBackReference

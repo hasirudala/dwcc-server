@@ -23,16 +23,16 @@ public class OutgoingWasteRecord extends BaseEntity {
     @NotNull
     private Date toDate;
 
-    @Column
+    @Column(name = "total_kgs")
     private Double totalQuantity;
 
     /*
      *   totalQuantity expected to be >= (reject + sanitary)
      */
-    @Column
+    @Column(name = "reject_kgs")
     private Double rejectQuantity;
 
-    @Column
+    @Column(name = "sanitary_kgs")
     private Double sanitaryQuantity;
 
     @JsonManagedReference

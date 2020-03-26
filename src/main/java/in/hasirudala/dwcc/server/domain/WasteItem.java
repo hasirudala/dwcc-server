@@ -25,7 +25,7 @@ public class WasteItem extends BaseEntity {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JoinTable(name = "waste_items_waste_tags",
+    @JoinTable(name = "waste_items_tags",
             joinColumns = {@JoinColumn(name = "waste_item_id")},
             inverseJoinColumns = {@JoinColumn(name = "waste_tag_id")})
     private Set<WasteTag> tags = new HashSet<>();

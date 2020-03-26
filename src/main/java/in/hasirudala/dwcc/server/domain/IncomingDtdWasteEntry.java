@@ -7,8 +7,8 @@ import javax.persistence.*;
 
 @Audited
 @Entity
-@Table(name = "incoming_waste_dtd")
-public class IncomingDtdWaste extends BaseEntity {
+@Table(name = "incoming_waste_entries_dtd")
+public class IncomingDtdWasteEntry extends BaseEntity {
     @Column(nullable = false)
     private String vehicleNumber;
 
@@ -17,13 +17,13 @@ public class IncomingDtdWaste extends BaseEntity {
     @JoinColumn(name = "vehicle_type_id", nullable = false)
     private VehicleType vehicleType;
 
-    @Column(nullable = false)
+    @Column(name = "total_kgs", nullable = false)
     private Double quantity;
 
-    @Column(nullable = false)
+    @Column(name = "reject_kgs", nullable = false)
     private Double rejectQty;
 
-    @Column(nullable = false)
+    @Column(name = "sanitary_kgs", nullable = false)
     private Double sanitaryQty;
 
     @JsonBackReference

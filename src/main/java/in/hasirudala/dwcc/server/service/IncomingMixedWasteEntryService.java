@@ -1,6 +1,6 @@
 package in.hasirudala.dwcc.server.service;
 
-import in.hasirudala.dwcc.server.domain.IncomingMixedWaste;
+import in.hasirudala.dwcc.server.domain.IncomingMixedWasteEntry;
 import in.hasirudala.dwcc.server.domain.IncomingWasteRecord;
 import in.hasirudala.dwcc.server.repository.WasteItemRepository;
 import in.hasirudala.dwcc.server.web.contract.IncomingMixedWasteRequest;
@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @Service
-public class IncomingMixedWasteEntryService extends AbstractEntryService<IncomingMixedWasteRequest, IncomingMixedWaste, IncomingWasteRecord> {
+public class IncomingMixedWasteEntryService extends AbstractEntryService<IncomingMixedWasteRequest, IncomingMixedWasteEntry, IncomingWasteRecord> {
     private WasteItemRepository wasteItemRepository;
 
     @Autowired
@@ -25,14 +25,14 @@ public class IncomingMixedWasteEntryService extends AbstractEntryService<Incomin
         }
     }
 
-    public IncomingMixedWaste create(IncomingMixedWasteRequest payload) {
-        IncomingMixedWaste wasteItem = new IncomingMixedWaste();
+    public IncomingMixedWasteEntry create(IncomingMixedWasteRequest payload) {
+        IncomingMixedWasteEntry wasteItem = new IncomingMixedWasteEntry();
         wasteItem.assignUuid();
         setAttributes(wasteItem, payload);
         return wasteItem;
     }
 
-    public void setAttributes(IncomingMixedWaste mixedWasteItem, IncomingMixedWasteRequest payload) {
+    public void setAttributes(IncomingMixedWasteEntry mixedWasteItem, IncomingMixedWasteRequest payload) {
         mixedWasteItem.setItems(new HashSet<>(wasteItemRepository.findAllById(payload.getItemIds())));
         mixedWasteItem.setQuantity(payload.getQuantity());
         mixedWasteItem.setRejectQty(payload.getRejectQty());

@@ -29,13 +29,13 @@ public class OutgoingWasteEntry extends BaseEntity {
             inverseJoinColumns = {@JoinColumn(name = "item_id")})
     private Set<WasteItem> items = new HashSet<>();
 
-    @Column(nullable = false)
+    @Column(name = "quantity_kgs", nullable = false)
     private Double quantity;
 
-    @Column
+    @Column(name = "stock_in_hand_kgs")
     private Double stockInHand;
 
-    @Column
+    @Column(name = "rate_per_kg")
     private Double rate;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

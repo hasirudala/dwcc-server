@@ -1,6 +1,6 @@
 package in.hasirudala.dwcc.server.service;
 
-import in.hasirudala.dwcc.server.domain.IncomingDtdWaste;
+import in.hasirudala.dwcc.server.domain.IncomingDtdWasteEntry;
 import in.hasirudala.dwcc.server.domain.IncomingWasteRecord;
 import in.hasirudala.dwcc.server.domain.VehicleType;
 import in.hasirudala.dwcc.server.repository.VehicleTypeRepository;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class IncomingDtdWasteEntryService extends AbstractEntryService<IncomingDtdWasteRequest, IncomingDtdWaste, IncomingWasteRecord> {
+public class IncomingDtdWasteEntryService extends AbstractEntryService<IncomingDtdWasteRequest, IncomingDtdWasteEntry, IncomingWasteRecord> {
     private VehicleTypeRepository vehicleTypeRepository;
 
     @Autowired
@@ -25,14 +25,14 @@ public class IncomingDtdWasteEntryService extends AbstractEntryService<IncomingD
         }
     }
 
-    public IncomingDtdWaste create(IncomingDtdWasteRequest payload) {
-        IncomingDtdWaste dtdEntry = new IncomingDtdWaste();
+    public IncomingDtdWasteEntry create(IncomingDtdWasteRequest payload) {
+        IncomingDtdWasteEntry dtdEntry = new IncomingDtdWasteEntry();
         dtdEntry.assignUuid();
         setAttributes(dtdEntry, payload);
         return dtdEntry;
     }
 
-    public void setAttributes(IncomingDtdWaste dtdEntry, IncomingDtdWasteRequest payload) {
+    public void setAttributes(IncomingDtdWasteEntry dtdEntry, IncomingDtdWasteRequest payload) {
         dtdEntry.setVehicleNumber(payload.getVehicleNumber());
         VehicleType vt = vehicleTypeRepository.getOne(payload.getVehicleTypeId());
         dtdEntry.setVehicleType(vt);

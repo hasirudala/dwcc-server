@@ -3,7 +3,7 @@ package in.hasirudala.dwcc.server.web;
 import in.hasirudala.dwcc.server.domain.*;
 import in.hasirudala.dwcc.server.repository.IncomingWasteRecordRepository;
 import in.hasirudala.dwcc.server.service.IncomingWasteService;
-import in.hasirudala.dwcc.server.web.contract.IncomingWasteRequest;
+import in.hasirudala.dwcc.server.web.contract.IncomingWasteRecordRequest;
 import in.hasirudala.dwcc.server.web.messages.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,7 +37,7 @@ public class IncomingWasteRecordController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<IncomingWasteRecord> create(@RequestBody IncomingWasteRequest payload) {
+    public ResponseEntity<IncomingWasteRecord> create(@RequestBody IncomingWasteRecordRequest payload) {
         IncomingWasteRecord record = incomingWasteService.createFromRequest(payload);
         return new ResponseEntity<>(record, HttpStatus.OK);
     }
@@ -59,7 +59,7 @@ public class IncomingWasteRecordController {
     @Transactional
     @PutMapping("/{id}")
     public ResponseEntity<?> updateRecord(@PathVariable("id") Long id,
-                                          @RequestBody IncomingWasteRequest request) {
+                                          @RequestBody IncomingWasteRecordRequest request) {
         IncomingWasteRecord existingRecord;
         try {
             existingRecord = recordRepository
