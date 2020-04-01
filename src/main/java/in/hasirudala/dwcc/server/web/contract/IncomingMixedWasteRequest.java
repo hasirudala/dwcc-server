@@ -7,6 +7,8 @@ public class IncomingMixedWasteRequest extends BaseRequest {
     private Double quantity;
     private Double rejectQty;
     private Double rate;
+    private Long sourceId = null;
+    private String billNumber;
 
     public Set<Long> getItemIds() {
         return itemIds;
@@ -39,4 +41,21 @@ public class IncomingMixedWasteRequest extends BaseRequest {
     public void setRate(Double rate) {
         this.rate = rate;
     }
+
+    public Long getSourceId() {
+        return sourceId;
+    }
+
+    public void setSourceId(Long sourceId) {
+        this.sourceId = sourceId;
+    }
+
+    public String getBillNumber() {
+        return billNumber;
+    }
+
+    public void setBillNumber(String billNumber) {
+        this.billNumber = billNumber;
+    }
+
 }

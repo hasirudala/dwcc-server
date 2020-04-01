@@ -3,6 +3,7 @@ package in.hasirudala.dwcc.server.service;
 import in.hasirudala.dwcc.server.domain.IncomingMixedWasteEntry;
 import in.hasirudala.dwcc.server.domain.IncomingWasteRecord;
 import in.hasirudala.dwcc.server.repository.WasteItemRepository;
+import in.hasirudala.dwcc.server.repository.WasteSourceRepository;
 import in.hasirudala.dwcc.server.web.contract.IncomingMixedWasteRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +14,13 @@ import java.util.List;
 @Service
 public class IncomingMixedWasteEntryService extends AbstractEntryService<IncomingMixedWasteRequest, IncomingMixedWasteEntry, IncomingWasteRecord> {
     private WasteItemRepository wasteItemRepository;
+    private WasteSourceRepository wasteSourceRepository;
 
     @Autowired
-    public IncomingMixedWasteEntryService(WasteItemRepository wasteItemRepository) {
+    public IncomingMixedWasteEntryService(WasteItemRepository wasteItemRepository,
+                                          WasteSourceRepository wasteSourceRepository) {
         this.wasteItemRepository = wasteItemRepository;
+        this.wasteSourceRepository = wasteSourceRepository;
     }
 
     public void createAndAdd(IncomingWasteRecord record, List<IncomingMixedWasteRequest> payloads) {
@@ -37,6 +41,8 @@ public class IncomingMixedWasteEntryService extends AbstractEntryService<Incomin
         mixedWasteItem.setQuantity(payload.getQuantity());
         mixedWasteItem.setRejectQty(payload.getRejectQty());
         mixedWasteItem.setRate(payload.getRate());
+        mixedWasteItem.setSourceOfWaste(wasteSourceRepository.getOne(payload.getSourceId()));
+        mixedWasteItem.setBillNumber(payload.getBillNumber());
     }
 
     public void update(IncomingWasteRecord record, List<IncomingMixedWasteRequest> payloads) {

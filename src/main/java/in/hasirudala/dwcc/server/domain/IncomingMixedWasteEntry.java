@@ -2,9 +2,11 @@ package in.hasirudala.dwcc.server.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -31,6 +33,14 @@ public class IncomingMixedWasteEntry extends BaseEntity {
 
     @Column(name = "rate_per_kg")
     private Double rate;
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne
+    @JoinColumn(name = "source_id")
+    private WasteSource sourceOfWaste;
+
+    @Column
+    private String billNumber;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
@@ -71,6 +81,26 @@ public class IncomingMixedWasteEntry extends BaseEntity {
 
     public void setRate(Double rate) {
         this.rate = rate;
+    }
+
+    public WasteSource getSourceOfWaste() {
+        return sourceOfWaste;
+    }
+
+    public void setSourceOfWaste(WasteSource sourceOfWaste) {
+        this.sourceOfWaste = sourceOfWaste;
+    }
+
+    public Long getSourceId() {
+        return this.sourceOfWaste.getId();
+    }
+
+    public String getBillNumber() {
+        return billNumber;
+    }
+
+    public void setBillNumber(String billNumber) {
+        this.billNumber = billNumber;
     }
 
     public IncomingWasteRecord getRecord() {
