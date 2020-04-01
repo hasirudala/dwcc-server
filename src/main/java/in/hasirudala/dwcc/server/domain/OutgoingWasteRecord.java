@@ -23,12 +23,6 @@ public class OutgoingWasteRecord extends BaseEntity {
     @NotNull
     private Date toDate;
 
-    @Column(name = "total_kgs")
-    private Double totalQuantity;
-
-    /*
-     *   totalQuantity expected to be >= (reject + sanitary)
-     */
     @Column(name = "reject_kgs")
     private Double rejectQuantity;
 
@@ -62,14 +56,6 @@ public class OutgoingWasteRecord extends BaseEntity {
 
     public void setToDate(Date toDate) {
         this.toDate = toDate;
-    }
-
-    public Double getTotalQuantity() {
-        return totalQuantity;
-    }
-
-    public void setTotalQuantity(Double totalQuantity) {
-        this.totalQuantity = totalQuantity;
     }
 
     public Double getRejectQuantity() {

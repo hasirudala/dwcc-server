@@ -33,7 +33,6 @@ public class OutgoingWasteService {
         record.assignUuid();
         record.setFromDate(request.getFromDate());
         record.setToDate(request.getToDate());
-        record.setTotalQuantity(request.getTotalQuantity());
         record.setRejectQuantity(request.getRejectQuantity());
         record.setSanitaryQuantity(request.getSanitaryQuantity());
         record.setDwcc(dwccRepository.getOne(request.getDwccId()));
@@ -46,7 +45,6 @@ public class OutgoingWasteService {
     public OutgoingWasteRecord updateFromRequest(OutgoingWasteRecord record, OutgoingWasteRequest request) {
         record.setFromDate(request.getFromDate());
         record.setToDate(request.getToDate());
-        record.setTotalQuantity(request.getTotalQuantity());
         record.setRejectQuantity(request.getRejectQuantity());
         record.setSanitaryQuantity(request.getSanitaryQuantity());
         record.setNote(request.getNote());

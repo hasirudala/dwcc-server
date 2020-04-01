@@ -6,7 +6,6 @@ import java.util.List;
 public class OutgoingWasteRequest extends BaseRequest {
     private Date fromDate;
     private Date toDate;
-    private Double totalQuantity;
     private Double rejectQuantity;
     private Double sanitaryQuantity;
     private Long dwccId;
@@ -27,14 +26,6 @@ public class OutgoingWasteRequest extends BaseRequest {
 
     public void setToDate(Date toDate) {
         this.toDate = toDate;
-    }
-
-    public Double getTotalQuantity() {
-        return totalQuantity;
-    }
-
-    public void setTotalQuantity(Double totalQuantity) {
-        this.totalQuantity = totalQuantity;
     }
 
     public Double getRejectQuantity() {
