@@ -36,12 +36,10 @@ public class SSLConfiguration {
         };
 
         tomcat.addAdditionalTomcatConnectors(redirectConnector());
-        //tomcat.addAdditionalTomcatConnectors(httpConnector());
         return tomcat;
     }
 
     private Connector redirectConnector() {
-    //private Connector httpConnector() {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
         connector.setScheme("http");
         connector.setPort(httpPort);
