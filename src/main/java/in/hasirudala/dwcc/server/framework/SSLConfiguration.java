@@ -18,13 +18,12 @@ public class SSLConfiguration {
     @Value("${dwcc.server.httpPort}")
     private int httpPort;
 
-    //@Value("${dwcc.server.httpsPort}")
-    //private int httpsPort;
+    @Value("${dwcc.server.httpsPort}")
+    private int httpsPort;
 
     @Bean
     public ServletWebServerFactory servletContainer() {
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
-            /*
             @Override
             protected void postProcessContext(Context context) {
                 SecurityConstraint securityConstraint = new SecurityConstraint();
@@ -34,20 +33,20 @@ public class SSLConfiguration {
                 securityConstraint.addCollection(collection);
                 context.addConstraint(securityConstraint);
             }
-            */
         };
-        //tomcat.addAdditionalTomcatConnectors(redirectConnector());
-        tomcat.addAdditionalTomcatConnectors(httpConnector());
+
+        tomcat.addAdditionalTomcatConnectors(redirectConnector());
+        //tomcat.addAdditionalTomcatConnectors(httpConnector());
         return tomcat;
     }
 
-    //private Connector redirectConnector() {
-    private Connector httpConnector() {
+    private Connector redirectConnector() {
+    //private Connector httpConnector() {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
         connector.setScheme("http");
         connector.setPort(httpPort);
         connector.setSecure(false);
-        //connector.setRedirectPort(httpsPort);
+        connector.setRedirectPort(httpsPort);
         return connector;
     }
 }
