@@ -1,16 +1,13 @@
 [Unit]
 Description=DWCC SpringBoot Server
 
-Environment=WDIR=/home/app/dwcc-live/server
-ConditionPathExists=${WDIR}
-
 [Service]
 User=www-data
 
-WorkingDirectory=${WDIR}
-EnvironmentFile=${WDIR}/.env.local
+WorkingDirectory=/home/app/dwcc-live/server
+EnvironmentFile=/home/app/dwcc-live/server/.env.local
 
-ExecStart=/usr/bin/java -jar ${WDIR}/dwcc-server.jar
+ExecStart=/usr/bin/java -jar /home/app/dwcc-live/server/dwcc-server.jar
 
 PermissionsStartOnly=true
 ExecStartPre=/bin/mkdir -p /var/log/dwcc
