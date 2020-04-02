@@ -1,5 +1,6 @@
 package in.hasirudala.dwcc.server.web.contract;
 
+import java.sql.Date;
 import java.util.Set;
 
 public class OutgoingWasteEntryRequest extends BaseRequest {
@@ -8,6 +9,10 @@ public class OutgoingWasteEntryRequest extends BaseRequest {
     private Double stockInHand;
     private Double rate;
     private Long buyerId = null;
+    private String vehicleNumber;
+    private String weighbridgeSlipNumber;
+    private String invoiceNumber;
+    private Date invoiceDate;
 
     public Set<Long> getItemIds() {
         return itemIds;
@@ -47,5 +52,37 @@ public class OutgoingWasteEntryRequest extends BaseRequest {
 
     public void setBuyerId(Long buyerId) {
         this.buyerId = buyerId;
+    }
+
+    public String getVehicleNumber() {
+        return vehicleNumber;
+    }
+
+    public void setVehicleNumber(String vehicleNumber) {
+        this.vehicleNumber = vehicleNumber;
+    }
+
+    public String getWeighbridgeSlipNumber() {
+        return weighbridgeSlipNumber;
+    }
+
+    public void setWeighbridgeSlipNumber(String weighbridgeSlipNumber) {
+        this.weighbridgeSlipNumber = weighbridgeSlipNumber;
+    }
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public Date getInvoiceDate() {
+        return invoiceDate;
+    }
+
+    public void setInvoiceDate(Date invoiceDate) {
+        this.invoiceDate = invoiceDate;
     }
 }

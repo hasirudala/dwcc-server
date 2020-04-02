@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -42,6 +43,18 @@ public class OutgoingWasteEntry extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "buyer_id")
     private WasteBuyer buyer = null;
+
+    @Column
+    private String vehicleNumber;
+
+    @Column
+    private String weighbridgeSlipNumber;
+
+    @Column
+    private String invoiceNumber;
+
+    @Column
+    private Date invoiceDate;
 
     public OutgoingWasteRecord getRecord() {
         return record;
@@ -102,5 +115,37 @@ public class OutgoingWasteEntry extends BaseEntity {
     public Long getBuyerId() {
         if (this.buyer == null) return null;
         return this.buyer.getId();
+    }
+
+    public String getVehicleNumber() {
+        return vehicleNumber;
+    }
+
+    public void setVehicleNumber(String vehicleNumber) {
+        this.vehicleNumber = vehicleNumber;
+    }
+
+    public String getWeighbridgeSlipNumber() {
+        return weighbridgeSlipNumber;
+    }
+
+    public void setWeighbridgeSlipNumber(String weighbridgeSlipNumber) {
+        this.weighbridgeSlipNumber = weighbridgeSlipNumber;
+    }
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public Date getInvoiceDate() {
+        return invoiceDate;
+    }
+
+    public void setInvoiceDate(Date invoiceDate) {
+        this.invoiceDate = invoiceDate;
     }
 }

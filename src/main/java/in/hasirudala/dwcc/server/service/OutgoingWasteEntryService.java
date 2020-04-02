@@ -45,6 +45,10 @@ public class OutgoingWasteEntryService extends AbstractEntryService<OutgoingWast
             entry.setBuyer(null);
         else
             entry.setBuyer(buyerRepository.getOne(payload.getBuyerId()));
+        entry.setVehicleNumber(payload.getVehicleNumber());
+        entry.setWeighbridgeSlipNumber(payload.getWeighbridgeSlipNumber());
+        entry.setInvoiceNumber(payload.getInvoiceNumber());
+        entry.setInvoiceDate(payload.getInvoiceDate());
     }
 
     public void update(OutgoingWasteRecord record, List<OutgoingWasteEntryRequest> payloads) {
