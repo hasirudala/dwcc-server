@@ -15,3 +15,21 @@ open_test_results:
 
 start_server_wo_gradle:
 	java -jar build/libs/dwcc-server.jar
+
+# Logs
+define _tail_server
+	ssh $1 "sudo journalctl -f -u dwcc-server"
+endef
+
+define _server
+	ssh $1 "sudo systemctl $2 dwcc-server"
+endef
+
+tail_server_prod:
+	$(call _tail_server,dwcc)
+
+restart_server_prod:
+	$(call _server,dwcc,restart)
+
+stop_server_prod:
+	$(call _server,dwcc,stop)
